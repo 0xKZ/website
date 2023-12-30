@@ -12,9 +12,11 @@ The website is ugly and simple because it gets the job done and I want to minimi
 
 Just follow the 11ty instructions under quick start: https://www.11ty.dev/
 
-## Run the static site generator
+## Run the static site generator to test locally
 
 ```
-npx @11ty/eleventy
+npx @11ty/eleventy --serve
 ```
+
+Click on the localhost link it spits out.
 
