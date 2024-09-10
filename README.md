@@ -30,6 +30,6 @@ Click on the localhost link it spits out.
 
 # Updating dependencies
 
-Maintenance stuff...
+... todo, write something useful here
 
 
