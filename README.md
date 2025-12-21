@@ -39,3 +39,18 @@ Click on the localhost link it spits out.
 # Updating dependencies
 
 ... todo, write something useful here
+
+
+# Publishing An Update
+
+The website automatically updates via a workflow when a commit lands on the `master` branch.
+
+See the github actions setup here:
+```
+.github/workflows/build.yml
+```
+
+On github, there's an 'evironment' set up called `github-pages`. This is configured to wait for 15 minutes before starting a workflow
+after you push, in case you do something stupid.
+
+Note that if you view the `github-pages` branch, the files in there are very limited as they are just the content of the website. Therefore, you should not be manually merging or pushing to this branch. The workflow takes care of that.
