@@ -1,13 +1,14 @@
 {
   "name": "website",
   "version": "1.0.1",
-  "description": "This is a public repository because I don't want to pay money to host a static page from a private repository.",
+  "description": "Zach's website. This is a public repository because I don't want to pay money to host a static page from a private repository.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Zach Kehs",
   "license": "UNLICENSED",
+  "private": true,
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1"
   }
