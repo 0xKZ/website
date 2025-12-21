@@ -11,7 +11,15 @@ I'm a web/frontend noob, and I want to spend my energy getting better at other t
 
 ## Install Node.js >= v14
 
+### When using bash:
+
 Just follow the 11ty instructions under quick start: https://www.11ty.dev/
+
+### When using Fish Shell:
+
+I've been using fish recently so instead I installed: https://github.com/jorgebucaran/nvm.fish
+
+Note that I had to install Fisher first. Then I continued from the 11ty instructions.
 
 ### Windows + MSYS2/Mingw64
 
@@ -31,5 +39,3 @@ Click on the localhost link it spits out.
 # Updating dependencies
 
 ... todo, write something useful here
-
-
