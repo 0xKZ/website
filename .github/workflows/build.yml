@@ -1,16 +1,20 @@
 name: Build&Deploy
 on: [push]
 
-# See: https://github.com/TartanLlama/actions-eleventy
 jobs:
   build_deploy:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@master
+      # See: https://github.com/actions/setup-node
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      # See: https://github.com/TartanLlama/actions-eleventy
       - name: Build
         uses: TartanLlama/actions-eleventy@master
         with:
-          install_dependencies: true
+          install_dependencies: false
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
