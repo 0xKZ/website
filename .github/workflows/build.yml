@@ -7,12 +7,16 @@ jobs:
     steps:
       - uses: actions/checkout@master
       # See: https://github.com/actions/setup-node
-      - uses: actions/setup-node@v6
-        with:
-          node-version: 24
+      #- name: Node Setup
+      #- uses: actions/setup-node@v6
+      #  with:
+      #    node-version: 24
+      #
       # See: https://github.com/TartanLlama/actions-eleventy
+      # NOTE: I am using a fork of this, b/c that repo is using an old node version
+      #       that 11ty doesn't work with anymore...
       - name: Build
-        uses: TartanLlama/actions-eleventy@master
+        uses: 0xKZ/actions-eleventy@master
         with:
           install_dependencies: false
       - name: Deploy
