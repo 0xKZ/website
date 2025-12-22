@@ -11,17 +11,19 @@
 :root {
     color-scheme: light dark;
 
-    --color-gray-20: light-dark(#e0e0e0, #e0e0e0);
-    --color-gray-50: light-dark(#c0c0c0, #c0c0c0);
+    /* Lowest contrast at top, highest contrast at bottom */
+    --color-gray-20: light-dark(#b3b3b3, #e0e0e0);
     --color-gray-90: light-dark(#333, #dad8d8);
 
-    --background-color: light-dark(#fff, #15202b);
+    /* a little green tint because I like green :) */
+    --background-color: light-dark(#e6ede7, #1f2420);
 
     --text-color: var(--color-gray-90);
-    --text-color-link: light-dark(#082840, #1493fb);
-    --text-color-link-active: light-dark(#5f2b48, #6969f7);
-    --text-color-link-visited: light-dark(#17050f, #a6a6f8);
+    --text-color-link: light-dark(#08400b, #96c272);
+    --text-color-link-active: light-dark(#5f2b48, #24ff27);
+    --text-color-link-visited: light-dark(#455946, #b9bf93);
 
+    --header-footer-separator-color: var(--color-gray-20);
     --syntax-tab-size: 2;
 }
 
@@ -112,7 +114,7 @@ main :first-child {
 }
 
 header {
-    border-bottom: 1px dashed var(--color-gray-20);
+    border-bottom: 1px dashed var(--header-footer-separator-color);
 }
 
 #skip-link {
@@ -138,7 +140,7 @@ header {
     justify-content: space-between;
     gap: 0.5em 1em;
     list-style: "";
-    border-top: 1px dashed var(--color-gray-20);
+    border-top: 1px dashed var(--header-footer-separator-color);
     padding: 1em 0;
 }
 .links-nextprev > * {
