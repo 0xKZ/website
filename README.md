@@ -9,7 +9,7 @@ I'm a web/frontend noob, and I want to spend my energy getting better at other t
 
 # Setup
 
-## Install Node.js >= v14
+## Install Node.js >= v18
 
 ### When using bash:
 
