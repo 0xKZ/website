@@ -4,7 +4,7 @@ on: [push]
 # See: https://github.com/TartanLlama/actions-eleventy
 jobs:
   build_deploy:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@master
       - name: Build
