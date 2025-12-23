@@ -10,7 +10,7 @@ I'm Zach Kehs. I'm working full-time on a video game project of mine. I don't ha
 
 ## Career
 
-I worked as a software engineer for about a decade before quitting to work on my game in 2024. I think of this as an extended sabbatical rather than a career transition, because games typically don't make money. I will likely return to the tech world if/when I run out of money.
+I worked as a software engineer for about a decade before quitting to work on my game project in 2024. I think of this as an extended sabbatical rather than a career transition, because games typically don't make money. I will likely return to the tech world if/when I run out of money.
 
 Most recently, I was a software engineer at Meta Reality Labs Research (formerly called Oculus Research). I built simulators and other tools to advance the state of the art in photonics, optics, and display systems.
 

@@ -13,10 +13,6 @@ const numberOfLatestPostsToShow = 3;
 
 <p>Below you will see posts from my blog.</p>
 
-<!--
-<p>Below you will see posts from my blog. If you want to be notified when I have more news to share, consider signing up for my email list here.</p>
-TODO, make real link.-->
-
 {% set postsCount = collections.posts | length %}
 {% set latestPostsCount = postsCount | min(numberOfLatestPostsToShow) %}
 <h2>Latest {{ latestPostsCount }} Post{% if latestPostsCount != 1 %}s{% endif %}</h2>
