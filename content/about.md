@@ -24,7 +24,7 @@ Find me on [LinkedIn](https://www.linkedin.com/in/zach-kehs-07746558/).
 
 ### The Short Version
 
-I have been passionate about games my whole life. I started designing pen-and-paper games when I was very young, and eventually taught myself programming to bring my games to life around when I was 13 or so. After building a number of freeware games, I started my first "big" game (i.e, that I intended to sell) at the age of 17. [Koya Rift](https://store.steampowered.com/app/328990/Koya_Rift/) was the result after 1.5 years of work. It's not very good, but I'm happy I saw it through to completion. It was a valuable learning experience!
+I have been passionate about games my whole life. I started designing pen-and-paper games when I was very young, and later taught myself programming to bring my games to life when I was 13 or so. After building a number of freeware games, I started my first "big" game (i.e, that I intended to sell) at the age of 17. [Koya Rift](https://store.steampowered.com/app/328990/Koya_Rift/) was the result after 1.5 years of work. It's not very good, but I'm happy I saw it through to completion. It was a valuable learning experience!
 
 After Koya Rift, I haven't released anything. I have been focusing on my software engineering career while building a new game on nights & weekends. In 2024, I quit my job to work on my new game full-time. I don't have anything public to share about this new game yet, though. [Subscribe to my mailing list]({{ '/subscribe/' | url }}) to be notified when I do. :)
 
