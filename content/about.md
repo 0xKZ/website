@@ -23,3 +23,6 @@ Find me on [LinkedIn](https://www.linkedin.com/in/zach-kehs-07746558/).
 ## The GameDev Story
 
 I have been enjoying and making games my whole life. If you want more details, check out [my gamedev story]({{ '/blog/zachs_gamedev_story/' | url }}) post.
+
+---
+Thanks for reading! Consider checking out my recent [blog posts!]({{ '/blog/' | url }})
