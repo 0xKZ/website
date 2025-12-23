@@ -4,13 +4,14 @@ const eleventyNavigation = {
 	order: 2
 };
 ---
+
+Consider signing up for the mailing list. I'll send an email there whenever I have something new to share.
+
+<!-- Extra gap because the email signup is a little crowded -->
+<p></p>
+{% include "mailing_list_signup.njk" %}
+
 <h1>Archive</h1>
-
-<!-- MailerLite signup -->
-<div class="ml-embedded" data-form="RF4hsk"></div>
-
-
-<h2> Recent Posts </h2>
 
 {% set postslist = collections.posts %}
 {% include "postslist.njk" %}
