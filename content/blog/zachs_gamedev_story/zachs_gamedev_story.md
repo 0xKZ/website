@@ -8,16 +8,18 @@ date: 2025-12-22
 tags: evergreen
 ---
 
-I had too much to write for the 'about' page, so I'm dumping it here as a post. Whee!
+This post started by me trying to write my [about]({{ '/about/' | url }}) page, but I got carried away and wrote way too much. Therefore, I'm dumping it here as a dedicated post.
 
 ### 1. Early Childhood
 
 I have loved games for as long as I can remember, both playing games and building them. I designed many little board games in my early childhood, before being introduced to a home computer.
 
-<!--TODO: Height not working? But it did on a non-blog page, so something w/ the blog format...-->
-<img src="./baby_zach_on_computer.jpg" alt="Here I am enjoying what appears to be excel on windows XP" height="200"/>
+<!-- TODO: Find some of your old stupid board games and put a picture here -->
 
 My first introduction to digital creation media was [the print shop](https://en.wikipedia.org/wiki/The_Print_Shop) on our computer (I don't remember the version of print shop, but I think we were using Windows 98 at the time). I used this software to make little local websites where you would navigate around by clicking images I had placed. Somehow I was very entertained and made many 'games' that were effectively mazes you would navigate by clicking images to denote your choices through a website.
+
+<!-- Note: CSS rules will ignore you overriding the height. Overriding width instead just so the image doesn't take up too much space. -->
+<img src="./baby_zach_on_computer.jpg" alt="Here I am enjoying what appears to be excel on windows XP" width="450"/>
 
 Later, I dabbled a little bit with some products from [The Game Creators](https://en.wikipedia.org/wiki/The_Game_Creators). I remember trying and failing to wrap my little brain around DarkBasic, but I had fun with FPSC. I hung around on the forums and tried to absorb knowledge from the other, more experienced game developers there. Mostly, this time was just spent being an annoying kid.
 
@@ -27,9 +29,19 @@ I had printed hundreds of pages of documentation out using my parent's printer (
 
 <!--TODO: Find some old screenshots of those crappy games and link 'em.-->
 
+#### Side Note: Other childhood inspirations
+
+- [Final Fantasy Tactics](https://en.wikipedia.org/wiki/Final_Fantasy_Tactics): My favorite game of my childhood and responsible for me falling in love with the turn-based genre. 
+  - Fun fact: I first got this game when I had a playstation 2, where "X" was the button to select things, and "O" was the button to "go back". This was reversed from the playstation 1, which was the system FFT originally came out for. Because of this, I as a small child (I don't remember how old I was) got stuck on the tutorial mission because I couldn't figure out how to close a dialog box, and this frustrated me so much that I cried.
+  
+- [Mage Knight](https://en.wikipedia.org/wiki/Mage_Knight) (_NOT_ the board game!): This was a minatures game that I got into in elementary school. I still think the early editions of this game were really well designed, and building custom armies and situations gave me countless hours of entertainment. Unfortunately, I think the gameplay and unit design went downhill later in the life of the series before it ultimately died and had its IP revived in the form of a board game that plays nothing like the original.
+
+- [Mount & Blade](https://en.wikipedia.org/wiki/Mount_%26_Blade_(series)): This didn't come out until I was in high school, but it was still such a fun game that heavily influenced the direction I wanted to take my 'dream game' project.
+
+
 ### 2. My first 'big' game
 
-After the freeware games, at 16 I felt over-confident in my coding abilities. I felt that I was ready to build a 'big' game, which would be a digital version of a tabletop game of mine from my earlier childhood. This I will refer to as ✨The Dream Game✨ (It will come up again). I was still using GameMaker at this point, but the past several games of mine including this one were 100% using code (GML). This was way over-scoped, and I realized I was in over my head about 1 year into the project. I simply needed to build up my skills more to be able to properly take on something this complex.
+After the freeware games, at 16 I felt over-confident in my coding abilities. I felt that I was ready to build a 'big' game, which would be a digital version of a tabletop role-playing game of mine from my earlier childhood. This I will refer to as ✨The Dream Game✨ (It will come up again). I was still using GameMaker at this point, but the past several games of mine including this one were 100% using code (GML). This was way over-scoped, and I realized I was in over my head about 1 year into the project. I simply needed to build up my skills more to be able to properly take on something this complex.
 
 <!--TODO: Screenshot of BK v1 !-->
 
@@ -65,16 +77,26 @@ I really, really liked Kotlin. I built a few small libraries and prototypes with
 
 During this time I had slowly convinced myself to restart ✨The Dream Game✨ yet again, but in Kotlin this time. I was bouncing between my weekend-projects, and every time I went back to work on the game in GML it became more and more painful, as I couldn't help but notice how much of my time was spent fixing bugs that a real static type system and automated tests would have prevented in the first place.
 
-So, ✨The Dream Game✨ was again started from scratch, with Kotlin as the language of choice.
+So, ✨The Dream Game✨ was again started from scratch, with Kotlin as the language of choice. The years continued to go by. 
 
-TODO: Describe how the game also was changing in identity during this time too, and how each version would have actually become a different game!
+#### Side Note: Staying Motivated & Productive While Moonlighting
 
+While I was working full-time, my game development schedule consisted, on average, of Saturday afternoons and at least one night during the week sometime. During high-motivational phases, this would be both days of the weekend and multiple nights per week. During low-motivational phases, this would just be the Saturday. I have a lot of thoughts about how I managed my motivation and productivity over time, and I want to make a separate blog post to write about them. When I eventually do that, I'll link it here.
+
+#### Side Note: Local Community
+
+During my full-time working years while I was moonlighting as a game developer, I typically spent every Saturday afternoon at an in-person co-working session for game developers. In Seattle, these were called "Indie Support Group" (colloquially called ISG, organized by [Seattle Indies](https://www.seattleindies.org/events/)). During 2018-2021, I lived in Pittsburgh, PA, and I set about finding my local game development community there. I helped convince the organizer of [Pittsburgh Game Makers](https://www.meetup.com/pgh-game-makers/) to start hosting Saturday co-working sessions as well, which they continued for years after I left. 
+
+Community is important to me - when working on the game alone, it's good to chat with other game developers on a regular basis. I think this was good for my motivation, my social health, and also my game design skills because I was just having regular conversations about gameplay problems. If you're reading this and you are interested in game development, I highly recommend connecting with your local community. There's a lot of game developers out there!
 
 ### 4. The Modern Era
 
-TODO: This can be short, just describe how you saved up money, quit work w/ the intention of taking the game seriously (and that you kinda had a pile of various systems that you had yet to really synergize into a game), and to stay tuned for details.
+While working full-time, I had a goal in mind. I wanted to eventually work on my game full-time, to build my dream project. I never once felt motivated to work in the games industry, in general, or to seek publishing to try and turn the dream project into a 'real job'. Instead I viewed it as a sort of artistic magnum opus, where I wanted full control at all times (regardless of how long it took).
 
-...
+I saved up money with the plan on building a big enough runway to be able to complete the game project. Over time, the fire within me to do the project never went out, and eventually the urge to quit my job was unbearable, and so I stepped away from the corporate life in 2024. Maybe this will come to be seen as a huge mistake. At the time of writing this, I'm a little over 1 year in, and I'm having a lot of fun and I have no regrets. Hopefully it stays that way.
 
-Other TODOs: 
-- I don't talk enough about my motivations / inspirations during childhood section. Make sections talking about FFT, Mage Knight, ???.
+Even though I've been working on the game for a while, it's still the early days, and I don't have much to show. When I do, I'll post about it on this website. Consider subscribing to my mailing list to stay up to date. :)
+
+-Zach
+
+{% include "mailing_list_signup.njk" %}

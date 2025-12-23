@@ -7,10 +7,15 @@ const eleventyNavigation = {
 
 <h1>Archive</h1>
 
-<!-- I list this in a compact link here in case the archive list is super long
-and the widget goes off the bottom of the screen. Having the widget at the top is a little too annoying to navigate. -->
+<p>
+    <!-- I list this in a compact link here in case the archive list is super long
+    and the widget goes off the bottom of the screen. Having the widget at the top
+    is a little too annoying to navigate. -->
+    Consider <a href={{ '/subscribe/' | url }}>signing up for the mailing list</a>.
+    I'll send an email there whenever I have something new to share.
+</p>
 
-Consider <a href={{ '/subscribe/' | url }}>signing up for the mailing list</a>. I'll send an email there whenever I have something new to share.
+---
 
 {% set postslist = collections.posts %}
 {% include "postslist.njk" %}

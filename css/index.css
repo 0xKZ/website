@@ -65,6 +65,11 @@ body {
 /* Fluid images via https://www.zachleat.com/web/fluid-images/ */
 img {
     max-width: 100%;
+
+    /* Making it a block w/ auto margins to center the image when it's < full width. */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 img[width][height] {
     height: auto;
