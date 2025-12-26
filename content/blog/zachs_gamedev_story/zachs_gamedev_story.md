@@ -52,7 +52,7 @@ I started a new project instead with a smaller scope, freshly inspired by the 20
 
 This project started at the age of 17 and finished at the age of 18 (I think ~1.5 years of work total), and [Koya Rift](https://store.steampowered.com/app/328990/Koya_Rift/) was the result! I sold it through my website for a few years, until I eventually got on Steam through their "Greenlight" program. This game isn't very good - I am still proud of what I accomplished though, because I stayed on schedule and released a bigger game. It was a valuable learning experience.
 
-<!--TODO: Screenshot of Koya Rift -->
+<img src="./koya_rift_screenshot.png" alt="screenshot of Koya Rift"/>
 
 The deadline for Koya Rift was real, in that I was leaving for University at age 18 to study Computer Science. I wanted to get the game finished and released so I didn't have to juggle that plus my university schoolwork because I was worried if that happened the game would never get done.
 
