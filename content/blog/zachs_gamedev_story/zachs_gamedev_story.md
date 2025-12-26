@@ -27,7 +27,10 @@ During this time I had also tried [GameMaker 6](https://en.wikipedia.org/wiki/Ga
 
 I had printed hundreds of pages of documentation out using my parent's printer (sorry!) that I downloaded over our dial-up internet, which I would consult when I got stuck and couldn't access the internet outside of times it was available. I spent the next ~3 years building a few freeware games to slowly grow my skills. Two of the games I made were for these multi-month competitions hosted by [YoYo Games](https://en.wikipedia.org/wiki/YoYo_Games) (who had purchased GameMaker a year or two after I had started using it). I didn't win anything (my games were bad), but they were a valuable learning experience, especially learning how to finish games and how to scope your games properly. This is something a lot of game developers really struggle with, so getting those reptitions in by making small, finished games really helped me.
 
-<!--TODO: Find some old screenshots of those crappy games and link 'em.-->
+<img src="./crappy_old_games.png" alt="Three bad freeware games I actually finished. Left: 'Elimod & Dagros'(Aug 2008), Center: 'The River' (Mar 2008), Right: 'Fluffum War' (2007)"/>
+
+<!-- TODO: Mention there were many unfinished games too... -->
+
 
 #### Side Note: Other childhood inspirations
 
@@ -43,7 +46,7 @@ I had printed hundreds of pages of documentation out using my parent's printer (
 
 After the freeware games, at 16 I felt over-confident in my coding abilities. I felt that I was ready to build a 'big' game, which would be a digital version of a tabletop role-playing game of mine from my earlier childhood. This I will refer to as ✨The Dream Game✨ (It will come up again). I was still using GameMaker at this point, but the past several games of mine including this one were 100% using code (GML). This was way over-scoped, and I realized I was in over my head about 1 year into the project. I simply needed to build up my skills more to be able to properly take on something this complex.
 
-<!--TODO: Screenshot of BK v1 !-->
+<img src="./dream_game_v1.png" alt="This was the final state of V1 of the dream game. Not bad!" width="450"/>
 
 I started a new project instead with a smaller scope, freshly inspired by the 2009 hit [Borderlands](https://en.wikipedia.org/wiki/Borderlands_(video_game)). The main inspiration from that game was the idea for procedurally-generated guns - I combined this with the idea of procdedurally-generated caves from [Spelunky](https://en.wikipedia.org/wiki/Spelunky), another favorite of mine, to make a shooter-roguelike.
 
