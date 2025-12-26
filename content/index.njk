@@ -11,7 +11,9 @@ const numberOfLatestPostsToShow = 3;
 
 <p>I make games. Learn more about me <a href="{{ '/about/' | url }}">here</a>.</p>
 
-<p>Below you will see posts from my blog.</p>
+<p>
+    All of my articles are human-written. I don't use LLM's to generate any content.
+</p>
 
 {% set postsCount = collections.posts | length %}
 {% set latestPostsCount = postsCount | min(numberOfLatestPostsToShow) %}
