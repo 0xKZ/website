@@ -25,12 +25,11 @@ Later, I dabbled a little bit with some products from [The Game Creators](https:
 
 During this time I had also tried [GameMaker 6](https://en.wikipedia.org/wiki/GameMaker), and I wasn't particularly convinced that I could make something advanced in it until I had played some games by [Darthlupi](https://archive.org/details/The_Cleaner). This guy was a real inspiration for me, and after I had found a little open source example game (or tutorial, I forget!) that he posted that used code (a pseudo-javascript language used by GameMaker called GML). Starting from this example, I taught myself programming at age 13 by digging through the (generally quite good!) documentation of GameMaker.
 
-I had printed hundreds of pages of documentation out using my parent's printer (sorry!) that I downloaded over our dial-up internet, which I would consult when I got stuck and couldn't access the internet outside of times it was available. I spent the next ~3 years building a few freeware games to slowly grow my skills. Two of the games I made were for these multi-month competitions hosted by [YoYo Games](https://en.wikipedia.org/wiki/YoYo_Games) (who had purchased GameMaker a year or two after I had started using it). I didn't win anything (my games were bad), but they were a valuable learning experience, especially learning how to finish games and how to scope your games properly. This is something a lot of game developers really struggle with, so getting those reptitions in by making small, finished games really helped me.
+I had printed hundreds of pages of documentation out using my parent's printer (sorry!) that I downloaded over our dial-up internet, which I would consult when I got stuck and couldn't access the internet outside of times it was available. I spent the next couple of years building games with this, 3 of which I completed and maybe 6-10 at various stages of production that I abandoned.
 
 <img src="./crappy_old_games.png" alt="Three bad freeware games I actually finished. Left: 'Elimod & Dagros'(Aug 2008), Center: 'The River' (Mar 2008), Right: 'Fluffum War' (2007)"/>
 
-<!-- TODO: Mention there were many unfinished games too... -->
-
+Two of the games I made were for these multi-month competitions hosted by [YoYo Games](https://en.wikipedia.org/wiki/YoYo_Games) (who had acquired GameMaker a year or two after I had started using it). I didn't win anything (my games were bad), but they were a valuable learning experience, especially learning how to finish games and how to scope your games properly. If it weren't for the competition deadline, those projects would have ended up abandoned too. Finishing games is something a lot of game developers really struggle with, so I am happy that I got those reptitions in by making a few small, finished games.
 
 #### Side Note: Other childhood inspirations
 
@@ -89,6 +88,13 @@ While I was working full-time, my game development schedule consisted, on averag
 #### Side Note: Local Community
 
 During my full-time working years while I was moonlighting as a game developer, I typically spent every Saturday afternoon at an in-person co-working session for game developers. In Seattle, these were called "Indie Support Group" (colloquially called ISG, organized by [Seattle Indies](https://www.seattleindies.org/events/)). During 2018-2021, I lived in Pittsburgh, PA, and I set about finding my local game development community there. I helped convince the organizer of [Pittsburgh Game Makers](https://www.meetup.com/pgh-game-makers/) to start hosting Saturday co-working sessions as well, which they continued for years after I left. 
+
+<img src="./seattle_isg_faces_blurred.jpg" alt="Seattle's ISG circa 2015. The second floor of this coffee shop was completely taken over by nerds making games."/>
+
+Above: Seattle ISG in 2015. Below: Pittsburgh Game Makers' co-working in 2018.
+
+<!-- Making this one a little less wide or else it's too tall. -->
+<img src="./pgm_blurred_faces.jpg" alt="Pittsburgh's Saturday Coworking circa 2018. Much smaller than Seattle, but closely-knit!" width="450"/>
 
 Community is important to me - when working on the game alone, it's good to chat with other game developers on a regular basis. I think this was good for my motivation, my social health, and also my game design skills because I was just having regular conversations about gameplay problems. If you're reading this and you are interested in game development, I highly recommend connecting with your local community. There's a lot of game developers out there!
 
