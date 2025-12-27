@@ -7,14 +7,6 @@
 		<meta name="description" content="{{ description or metadata.description }}">
 		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="{{ metadata.title }}">
 
-        <!-- Base link override to prevent GH pages from appending the repo name to the URL. I want
-      the links to be '.com/blog', not '.com/website/blog'.
-
-      TODO: One thing that sucks about this is testing locally, so ideally I find a better long-term
-      solution, this is a workaround for github pages for now...
-      -->
-        <base href="https://zachkehs.com/">
-
 		{#- Uncomment this if you’d like folks to know that you used Eleventy to build your site!  #}
 		{#- <meta name="generator" content="{{ eleventy.generator }}"> #}
 
