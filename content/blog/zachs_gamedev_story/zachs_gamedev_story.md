@@ -14,9 +14,10 @@ This post started by me trying to write my [about]({{ '/about/' | url }}) page, 
 
 I have loved games for as long as I can remember, and by that I mean both playing games and making them. I loved to draw as well, so much of my earliest games were pen-and-paper. Some were designed as reusable board games, but this was less common.
 
-My favorite was a pen-and-paper role-playing game that sort of started by me just drawing medieval warriors running around and fighting. Over time I added rules to how the drawing would progress, but those rules were loose because playing the game itself was a creative expression. If I were introduced to Dungeons & Dragons during these years, I would have loved it. However, I didn't actually learn about Dungeons & Dragons until my late teenage years, and by then I had long since been playing my own sort of version that had evolved from this pen-and-paper game.
+<!-- TODO: Get other pictures that show some of your crappier board games to show here too. -->
+<img src="./custom_board_game.jpg" alt="Here's part of one of the board games I made. (This is NOT the pen-and-paper role-playing game I reference elsewhere)" width="400"/>
 
-<!-- TODO: Find some of your old stupid board games and put a picture here -->
+My favorite was a pen-and-paper role-playing game that sort of started by me just drawing medieval warriors running around and fighting. Over time I added rules to how the drawing would progress, but those rules were loose because playing the game itself was a creative expression. If I were introduced to Dungeons & Dragons during these years, I would have loved it. However, I didn't actually learn about Dungeons & Dragons until my late teenage years, and by then I had long since been playing my own sort of version that had evolved from this pen-and-paper game.
 
 My first introduction to digital creation media was [The Print Shop](https://en.wikipedia.org/wiki/The_Print_Shop) on our computer (I don't remember the version of The Print Shop, but I think we were using Windows 98 at the time). With this, I made little local websites (as groups of HTML pages) where you would navigate around by clicking images I had placed, which would take you to a new page. Somehow I was very entertained and made many 'games' that were effectively mazes you would navigate by clicking images to denote your choices.
 
