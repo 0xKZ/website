@@ -1,10 +1,8 @@
 # Public Website Repo
 
-This is a public repository because I don't want to pay money to host a static page from a private repository.
+This is a public repository because I am too cheap to pay the money required to host a static page from a private repository.
 
-The website is ugly and simple because it gets the job done and I want to minimize my maintenence effort.
-
-I'm a web/frontend noob, and I want to spend my energy getting better at other things, so I am not particularly interested in becoming an expert here. Forgive me.
+The website is simple because it gets the job done and I want to minimize my maintenence effort.  I'm a web/frontend noob, and I want to spend my energy getting better at other things, so I am not particularly interested in becoming an expert here. Forgive me.
 
 
 # Setup
@@ -43,14 +41,16 @@ Click on the localhost link it spits out.
 
 # Publishing An Update
 
-The website automatically updates via a workflow when a commit lands on the `master` branch.
+The website automatically updates via a workflow when a commit lands on the `main` branch.
 
 See the github actions setup here:
 ```
-.github/workflows/build.yml
+.github/workflows/gh-pages.yml
 ```
 
 On github, there's an 'evironment' set up called `github-pages`. This is configured to wait for 15 minutes before starting a workflow
 after you push, in case you do something stupid.
 
 Note that if you view the `github-pages` branch, the files in there are very limited as they are just the content of the website. Therefore, you should not be manually merging or pushing to this branch. The workflow takes care of that.
+
+When you push a new commit to `main`, the deployment action there will kick off the deployment in the `gh-pages` branch, where you will see the 'check status' turn yellow while it waits the 15 minutes. You can click into there and override the timer to speed up the deployment when you are ready. The 15 minute timer is just there to help catch accidental pushes.
