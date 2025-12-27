@@ -1,0 +1,42 @@
+---js
+const eleventyNavigation = {
+	key: "Home",
+	order: 1
+};
+
+const numberOfLatestPostsToShow = 3;
+---
+
+<h1>Zach's Site</h1>
+
+<p>I make games. Learn more about me <a href="{{ '/about/' | url }}">here</a>.</p>
+
+<p>
+    All of my articles are human-written. I don't use LLM's to generate any content.
+</p>
+
+{% set postsCount = collections.posts | length %}
+{% set latestPostsCount = postsCount | min(numberOfLatestPostsToShow) %}
+<h2>Latest {{ latestPostsCount }} Post{% if latestPostsCount != 1 %}s{% endif %}</h2>
+
+{% set postslist = collections.posts | head(-1 * numberOfLatestPostsToShow) %}
+{% set postslistCounter = postsCount %}
+{% include "postslist.njk" %}
+
+{% set morePosts = postsCount - numberOfLatestPostsToShow %}
+{% if morePosts > 0 %}
+<p>{{ morePosts }} more post{% if morePosts != 1 %}s{% endif %} can be found in <a href="blog.njk">the archive</a>.</p>
+{% endif %}
+
+{# List every content page in the project #}
+{#
+<ul>
+	{%- for entry in collections.all %}
+	<li><a href="{{ entry.url }}"><code>{{ entry.url }}</code></a></li>
+	{%- endfor %}
+</ul>
+#}
+
+<!-- Extra gap because the email signup crowds the post list a bit too much for me -->
+<p>- - -</p>
+{% include "mailing_list_signup.njk" %}
