@@ -470,6 +470,53 @@ pre[class*="language-diff-"] {
 	margin-right: calc(-1 * var(--eleventy-code-padding));
 	text-decoration: none; /* override del, ins, mark defaults */
 	color: inherit; /* override del, ins, mark defaults */
+}
+body {
+    counter-reset: footnotes;
+}
+
+/* Inline footnote reference: appears as normal text with a [n] marker */
+[role="doc-noteref"] {
+    counter-increment: footnotes;
+    text-decoration: none;
+    color: inherit;
+    cursor: default;
+    outline: none;
+}
+[role="doc-noteref"]::after {
+    content: "[" counter(footnotes) "]";
+    vertical-align: super;
+    font-size: 50%;
+    margin-left: 2px;
+    color: var(--text-color-link);
+    text-decoration: underline;
+    cursor: pointer;
+}
+[role="doc-noteref"]:focus::after {
+    outline: thin dotted;
+    outline-offset: 2px;
+}
+
+/* Footnotes section at the bottom of the post */
+.Footnotes {
+    border-top: 1px dashed var(--header-footer-separator-color);
+    margin-top: 1em;
+    padding-top: 1em;
+    font-size: 0.875em; /* 14px /16 */
+}
+.Footnotes__title {
+    font-size: 1em; /* back to the post's base font size */
+}
+.Footnotes__list {
+    padding-left: 1.5em;
+}
+
+/* Highlight the footnote you just clicked */
+.Footnotes__list-item:target {
+    background-color: color-mix(in srgb, var(--text-color-link) 20%, transparent);
+}
+[role="doc-backlink"] {
+    font-size: 80%;
 }</style>
 		
 	</head>
@@ -492,6 +539,9 @@ pre[class*="language-diff-"] {
 		<main id="main">
 			<heading-anchors>
 				
+
+
+
 
 
 <h1 id="zachs-gamedev-story">Zach&#39;s GameDev Story</h1>
@@ -572,6 +622,8 @@ pre[class*="language-diff-"] {
 <script async="" src="https://eocampaign1.com/form/991a64dc-e033-11f0-acd8-e16c0801f9d0.js" data-form="991a64dc-e033-11f0-acd8-e16c0801f9d0"></script>
 
 
+
+
 			</heading-anchors>
 		</main>
 
@@ -581,7 +633,7 @@ pre[class*="language-diff-"] {
 			</p>
 		</footer>-->
 
-		<!-- This page `/blog/zachs_gamedev_story/` was built on 2026-09-02T17:08:50.093Z -->
+		<!-- This page `/blog/zachs_gamedev_story/` was built on 2026-09-02T20:45:09.942Z -->
 		<script type="module" src="/dist/cC8wS6ZjFU.js"></script>
 
 		<!-- SimpleAnalytics integration -->
