@@ -4,6 +4,57 @@ layout: layouts/base.njk
 {# Only include the syntax highlighter CSS on blog posts, included with the CSS per-page bundle #}
 <style>{% include "node_modules/prismjs/themes/prism-okaidia.css" %}</style>
 <style>{% include "css/prism-diff.css" %}</style>
+
+{# Footnotes (eleventy-plugin-footnotes), also bundled with the per-page CSS #}
+<style>
+body {
+    counter-reset: footnotes;
+}
+
+/* Inline footnote reference: appears as normal text with a [n] marker */
+[role="doc-noteref"] {
+    counter-increment: footnotes;
+    text-decoration: none;
+    color: inherit;
+    cursor: default;
+    outline: none;
+}
+[role="doc-noteref"]::after {
+    content: "[" counter(footnotes) "]";
+    vertical-align: super;
+    font-size: 50%;
+    margin-left: 2px;
+    color: var(--text-color-link);
+    text-decoration: underline;
+    cursor: pointer;
+}
+[role="doc-noteref"]:focus::after {
+    outline: thin dotted;
+    outline-offset: 2px;
+}
+
+/* Footnotes section at the bottom of the post */
+.Footnotes {
+    border-top: 1px dashed var(--header-footer-separator-color);
+    margin-top: 1em;
+    padding-top: 1em;
+    font-size: 0.875em; /* 14px /16 */
+}
+.Footnotes__title {
+    font-size: 1em; /* back to the post's base font size */
+}
+.Footnotes__list {
+    padding-left: 1.5em;
+}
+
+/* Highlight the footnote you just clicked */
+.Footnotes__list-item:target {
+    background-color: color-mix(in srgb, var(--text-color-link) 20%, transparent);
+}
+[role="doc-backlink"] {
+    font-size: 80%;
+}
+</style>
 <h1>{{ title }}</h1>
 
 <ul class="post-metadata">
@@ -15,6 +66,8 @@ layout: layouts/base.njk
 </ul>
 
 {{ content | safe }}
+
+{% footnotes %}
 
 {%- if collections.posts %}
 {%- set previousPost = collections.posts | getPreviousCollectionItem %}
