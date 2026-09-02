@@ -33,6 +33,37 @@ npx @11ty/eleventy --serve
 
 Click on the localhost link it spits out.
 
+### Alternative: build & serve inside an Apple container (no Node on the Mac)
+
+If you'd rather never run npm/Node on your Mac (e.g. to keep supply-chain
+exposure off your machine), you can do the whole build+serve inside a
+container. This uses the `container` CLI and the agent image from the
+[pi-container](../pi-container) repo:
+
+1. One-time setup (on the Mac): build the agent image
+   `cd ../pi-container && ./scripts/build.sh`
+2. From this repo:
+
+```
+./scripts/serve-in-container.sh
+```
+
+Then open http://localhost:4173 and press `Ctrl+C` to stop.
+
+- `--port 9000` — publish on a different local port. The default is 4173,
+  not 8080, so it doesn't clash with a local model server running on 8080.
+- `--build-only` — just run the install + build (writes `_site/`) and exit,
+  no server
+
+How it works: a container starts on the `default` network (internet, so npm
+can fetch packages *into the container*), runs `npm ci` (every package is
+verified against the integrity hashes in `package-lock.json`), and starts
+Eleventy's dev server, which is published to your Mac's localhost. The npm
+cache persists in `~/.pi-container-npm/website/` between runs, so only the
+first run downloads anything. Because `npm ci` wipes and reinstalls
+`node_modules`, it also fixes the fact that a Mac-installed `node_modules`
+contains native binaries (e.g. `sharp`) that don't work in a Linux container.
+
 
 # Updating dependencies
 
