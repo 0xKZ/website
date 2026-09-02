@@ -10,6 +10,7 @@ import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import footnotes from "eleventy-plugin-footnotes";
 
 import pluginFilters from "./_config/filters.js";
+import metadata from "./_data/metadata.js";
 
 /** @param {import("@11ty/eleventy").UserConfig} eleventyConfig */
 export default async function (eleventyConfig) {
@@ -83,13 +84,16 @@ export default async function (eleventyConfig) {
       name: "posts",
       limit: 10,
     },
+    // Single source of truth: _data/metadata.js
     metadata: {
-      language: "en",
-      title: "Blog Title",
-      subtitle: "This is a longer description about your blog.",
-      base: "https://example.com/",
+      language: metadata.language,
+      title: metadata.title,
+      subtitle: metadata.description,
+      base: metadata.url,
       author: {
-        name: "Your Name",
+        name: metadata.author.name,
+        // Omit the <email> tag when empty (the feed template skips falsy values)
+        email: metadata.author.email,
       },
     },
   });
