@@ -7,6 +7,12 @@
 		<meta name="description" content="{{ description or metadata.description }}">
 		<link rel="alternate" href="{{ '/feed/feed.xml' | url }}" type="application/atom+xml" title="{{ metadata.title }}">
 
+		{#- Preconnect to the origins we load third-party scripts from (SimpleAnalytics in
+		    this layout's <body>, EmailOctopus via mailing_list_signup.njk) so their TLS
+		    handshakes start early. Unused preconnects are dropped by browsers. #}
+		<link rel="preconnect" href="https://scripts.simpleanalyticscdn.com">
+		<link rel="preconnect" href="https://eocampaign1.com">
+
 		{#- Uncomment this if you’d like folks to know that you used Eleventy to build your site!  #}
 		{#- <meta name="generator" content="{{ eleventy.generator }}"> #}
 
