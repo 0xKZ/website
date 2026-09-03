@@ -36,6 +36,9 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - run: npm run build-ghpages
 
+      - name: Check internal links
+        run: npm run check:links
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         if: github.ref == 'refs/heads/main'
