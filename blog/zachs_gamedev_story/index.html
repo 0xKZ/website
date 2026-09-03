@@ -475,24 +475,30 @@ body {
     counter-reset: footnotes;
 }
 
-/* Inline footnote reference: appears as normal text with a [n] marker */
-[role="doc-noteref"] {
+/* Inline footnote reference: the text looks like regular paragraph text, the [n] marker is the eye-catching piece */
+a[role="doc-noteref"] {
     counter-increment: footnotes;
-    text-decoration: none;
+}
+a[role="doc-noteref"]:is(:link, :visited, :hover, :active) {
     color: inherit;
+    text-decoration: none;
     cursor: default;
     outline: none;
 }
-[role="doc-noteref"]::after {
+a[role="doc-noteref"]::after {
     content: "[" counter(footnotes) "]";
     vertical-align: super;
     font-size: 50%;
+    font-weight: 700;
     margin-left: 2px;
     color: var(--text-color-link);
-    text-decoration: underline;
     cursor: pointer;
 }
-[role="doc-noteref"]:focus::after {
+/* Underline the marker on hover/focus to signal it's clickable */
+a[role="doc-noteref"]:is(:hover, :focus-visible)::after {
+    text-decoration: underline;
+}
+a[role="doc-noteref"]:focus-visible::after {
     outline: thin dotted;
     outline-offset: 2px;
 }
@@ -633,7 +639,7 @@ body {
 			</p>
 		</footer>-->
 
-		<!-- This page `/blog/zachs_gamedev_story/` was built on 2026-09-02T21:59:38.433Z -->
+		<!-- This page `/blog/zachs_gamedev_story/` was built on 2026-09-03T04:32:32.452Z -->
 		<script type="module" src="/dist/cC8wS6ZjFU.js"></script>
 
 		<!-- SimpleAnalytics integration -->
