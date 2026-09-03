@@ -5,6 +5,30 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>{{ title or metadata.title }}</title>
 		<meta name="description" content="{{ description or metadata.description }}">
+
+		{#- Canonical URL + Open Graph / Twitter Card tags.
+		    Skipped on the 404 page: a canonical there would claim the 404 is a
+		    duplicate of a real page, which is wrong. #}
+		{%- if page.url != '/404.html' %}
+		{%- set canonicalUrl = page.url | htmlBaseUrl(metadata.url) %}
+		{%- set isPost = layout == 'layouts/post.njk' %}
+		<link rel="canonical" href="{{ canonicalUrl }}">
+		<meta property="og:site_name" content="{{ metadata.title }}">
+		<meta property="og:type" content="{{ 'article' if isPost else 'website' }}">
+		<meta property="og:title" content="{{ title or metadata.title }}">
+		<meta property="og:description" content="{{ description or metadata.description }}">
+		<meta property="og:url" content="{{ canonicalUrl }}">
+		{#- TODO(og-image): the site has no share image yet. Add a 1200x630 image
+		    (e.g. public/img/og-image.png) and emit `<meta property="og:image">`
+		    here (honoring an optional `og_image:` front-matter key per page), then
+		    switch twitter:card to `summary_large_image`. #}
+		<meta name="twitter:card" content="summary">
+		{%- if isPost %}
+		<meta property="article:published_time" content="{{ page.date | dateToRfc3339 }}">
+		<meta property="article:author" content="{{ metadata.author.name }}">
+		{%- endif %}
+		{%- endif %}
+
 		<link rel="alternate" href="{{ '/feed/feed.xml' | url }}" type="application/atom+xml" title="{{ metadata.title }}">
 
 		{#- Preconnect to the origins we load third-party scripts from (SimpleAnalytics in
