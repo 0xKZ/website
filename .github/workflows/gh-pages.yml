@@ -27,12 +27,6 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
 
-      - name: Cache Eleventy .cache
-        uses: actions/cache@v4
-        with:
-          path: ./.cache
-          key: ${{ runner.os }}-eleventy-fetch-cache
-
       - run: npm ci --no-audit --no-fund
       - run: npm run build-ghpages
 
@@ -41,6 +35,9 @@ jobs:
 
       - name: Check HTML markup
         run: npm run check:html
+
+      - name: Check content
+        run: npm run check:content
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
