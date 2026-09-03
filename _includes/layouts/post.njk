@@ -30,8 +30,8 @@ a[role="doc-noteref"]::after {
     color: var(--text-color-link);
     cursor: pointer;
 }
-/* Underline the marker on hover/focus to signal it's clickable */
-a[role="doc-noteref"]:is(:hover, :focus-visible)::after {
+/* Underline the reference on hover/focus to signal it's clickable */
+a[role="doc-noteref"]:is(:hover, :focus-visible) {
     text-decoration: underline;
 }
 a[role="doc-noteref"]:focus-visible::after {
