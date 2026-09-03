@@ -39,6 +39,9 @@ jobs:
       - name: Check internal links
         run: npm run check:links
 
+      - name: Check HTML markup
+        run: npm run check:html
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         if: github.ref == 'refs/heads/main'
