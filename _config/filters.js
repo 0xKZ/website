@@ -1,6 +1,12 @@
 import { DateTime } from "luxon";
+import markdownIt from "markdown-it";
 
 export default function(eleventyConfig) {
+	// Render a string of Markdown to HTML (same library/options as the site's
+	// Markdown pipeline). Used to render footnote text (eleventy-plugin-footnotes).
+	const mdLib = markdownIt({ html: true });
+	eleventyConfig.addFilter("markdown", (markdown) => mdLib.render(markdown));
+
 	eleventyConfig.addFilter("readableDate", (dateObj, format, zone) => {
 		// Formatting tokens for Luxon: https://moment.github.io/luxon/#/formatting?id=table-of-tokens
 		return DateTime.fromJSDate(dateObj, { zone: zone || "utc" }).toFormat(format || "dd LLLL yyyy");
