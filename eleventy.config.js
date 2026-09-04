@@ -10,6 +10,7 @@ import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import footnotes from "eleventy-plugin-footnotes";
 
 import pluginFilters from "./_config/filters.js";
+import pluginPullQuotes from "./_config/pullQuotes.js";
 import metadata from "./_data/metadata.js";
 
 /** @param {import("@11ty/eleventy").UserConfig} eleventyConfig */
@@ -69,6 +70,11 @@ export default async function (eleventyConfig) {
 
   // Footnotes: https://kittygiraudel.github.io/accessible-footnotes/eleventy/overview
   eleventyConfig.addPlugin(footnotes);
+
+  // Clickable pull quotes: a `blockquote.pull-quote` links to the passage in
+  // the post it was pulled from, and that passage gets a backlink to the quote
+  // (same jump-link pattern as the footnotes above). See _config/pullQuotes.js.
+  eleventyConfig.addPlugin(pluginPullQuotes);
 
   eleventyConfig.addPlugin(feedPlugin, {
     type: "atom", // or "rss", "json"
