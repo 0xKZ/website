@@ -99,6 +99,12 @@ li {
     line-height: 1.5;
 }
 
+/* Default block quote style: italic, 20% faded */
+blockquote {
+    font-style: italic;
+    opacity: 0.8;
+}
+
 a[href] {
     color: var(--text-color-link);
 }
