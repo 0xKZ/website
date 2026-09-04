@@ -291,3 +291,14 @@ header {
 .post-metadata time {
     margin-right: 1em;
 }
+
+/* Pull quote: a passage from the post set off as a highlight (often placed up front) */
+.pull-quote {
+    font-size: 1.25em; /* 20px /16 */
+    border-left: 3px dashed var(--header-footer-separator-color);
+    padding-left: 1em;
+    margin: 1em 0 2em;
+}
+.pull-quote p {
+    margin: 0;
+}
