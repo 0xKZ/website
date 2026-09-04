@@ -323,12 +323,39 @@ header {
 /* Pull quote: a passage from the post set off as a highlight (often placed up front) */
 .pull-quote {
     font-size: 1.25em; /* 20px /16 */
-    border-left: 3px dashed var(--header-footer-separator-color);
+    border-left: 3px dashed color-mix(in srgb, var(--header-footer-separator-color) 60%, transparent);
     padding-left: 1em;
     margin: 1em 0 2em;
 }
 .pull-quote p {
     margin: 0;
+}
+
+/* Clickable pull quote: the quote links to the passage in the post it was
+   pulled from, and the passage gets a matching backlink (added by
+   _config/pullQuotes.js; same jump-link pattern as the footnote refs and
+   backlinks in layouts/post.njk) */
+.pull-quote a {
+    color: inherit;
+    text-decoration: none;
+}
+/* Underline on hover/focus to signal it's clickable (mirrors footnote refs) */
+.pull-quote a:is(:hover, :focus-visible) {
+    text-decoration: underline;
+}
+.pull-quote a:focus-visible {
+    outline: thin dotted;
+    outline-offset: 2px;
+}
+
+/* Backlink appended to the passage in the post body (mirrors the footnotes' ↩) */
+.pull-quote-back {
+    font-size: 80%;
+}
+
+/* Highlight the passage you just jumped to (mirrors .Footnotes__list-item:target) */
+.pull-quote-source:target {
+    background-color: color-mix(in srgb, var(--text-color-link) 20%, transparent);
 }</style>
 		
 	</head>
@@ -397,7 +424,7 @@ header {
 			</p>
 		</footer>-->
 
-		<!-- This page `/` was built on 2026-09-04T16:59:50.329Z -->
+		<!-- This page `/` was built on 2026-09-04T21:42:43.164Z -->
 		<script type="module" src="/dist/cC8wS6ZjFU.js"></script>
 
 		<!-- SimpleAnalytics integration -->
