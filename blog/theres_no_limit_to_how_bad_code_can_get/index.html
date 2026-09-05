@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script>document.documentElement.classList.add("js")</script>
+		<title>There&#39;s No Limit to How Bad Code Can Get</title>
+		<meta name="description" content="Metaphors like &quot;a sinking ship&quot; are often used to describe codebases, but are misleading. A _business_ will sink long before code quality reaches a hypothetical floor. Technical debt has no bankruptcy, no clean reset, so metaphors that imply an end provide a false sense of security.">
+		<link rel="canonical" href="https://zachkehs.com/blog/theres_no_limit_to_how_bad_code_can_get/">
+		<meta property="og:site_name" content="Zach Kehs">
+		<meta property="og:type" content="article">
+		<meta property="og:title" content="There&#39;s No Limit to How Bad Code Can Get">
+		<meta property="og:description" content="Metaphors like &quot;a sinking ship&quot; are often used to describe codebases, but are misleading. A _business_ will sink long before code quality reaches a hypothetical floor. Technical debt has no bankruptcy, no clean reset, so metaphors that imply an end provide a false sense of security.">
+		<meta property="og:url" content="https://zachkehs.com/blog/theres_no_limit_to_how_bad_code_can_get/">
+		<meta name="twitter:card" content="summary">
+		<meta property="article:published_time" content="2026-09-04T00:00:00Z">
+		<meta property="article:author" content="Zach Kehs">
+
+		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Zach Kehs">
+		<link rel="preconnect" href="https://scripts.simpleanalyticscdn.com">
+		<link rel="preconnect" href="https://eocampaign1.com">
+		
+		
+		
+		<style>/* This is an arbitrary CSS string added to the bundle */
+/* Defaults */
+:root {
+    --font-family: -apple-system, system-ui, sans-serif;
+    --font-family-monospace:
+        Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console,
+        Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono,
+        Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+}
+
+/* Theme colors */
+:root {
+    color-scheme: light dark;
+
+    /* Lowest contrast at top, highest contrast at bottom */
+    --color-gray-20: light-dark(#b3b3b3, #e0e0e0);
+    --color-gray-90: light-dark(#333, #dad8d8);
+
+    /* a little green tint because I like green :) */
+    --background-color: light-dark(#e6ede7, #1f2420);
+
+    --text-color: var(--color-gray-90);
+    --text-color-link: light-dark(#08400b, #96c272);
+    --text-color-link-active: light-dark(#5f2b48, #24ff27);
+    --text-color-link-visited: light-dark(#455946, #b9bf93);
+
+    --header-footer-separator-color: var(--color-gray-20);
+    --syntax-tab-size: 2;
+}
+
+/* Global stylesheet */
+* {
+    box-sizing: border-box;
+}
+
+@view-transition {
+    navigation: auto;
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0 auto;
+    font-family: var(--font-family);
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+html {
+    overflow-y: scroll;
+}
+body {
+    max-width: 40em;
+}
+
+/* https://www.a11yproject.com/posts/how-to-hide-content/ */
+.visually-hidden:not(:focus):not(:active) {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+/* Fluid images via https://www.zachleat.com/web/fluid-images/ */
+img {
+    max-width: 100%;
+
+    /* Making it a block w/ auto margins to center the image when it's < full width. */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+img[width][height] {
+    height: auto;
+}
+img[src$=".svg"] {
+    width: 100%;
+    height: auto;
+    max-width: none;
+}
+video,
+iframe {
+    width: 100%;
+    height: auto;
+}
+iframe {
+    aspect-ratio: 16/9;
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+p {
+    line-height: 1.5;
+}
+
+li {
+    line-height: 1.5;
+}
+
+/* Default block quote style: italic, 20% faded */
+blockquote {
+    font-style: italic;
+    opacity: 0.8;
+}
+
+a[href] {
+    color: var(--text-color-link);
+}
+a[href]:visited {
+    color: var(--text-color-link-visited);
+}
+a[href]:hover,
+a[href]:active {
+    color: var(--text-color-link-active);
+}
+
+main,
+footer {
+    padding: 1rem;
+}
+main :first-child {
+    margin-top: 0;
+}
+
+header {
+    border-bottom: 1px dashed var(--header-footer-separator-color);
+}
+
+#skip-link {
+    text-decoration: none;
+    background: var(--background-color);
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-gray-90);
+    border-radius: 2px;
+}
+
+/* Prevent visually-hidden skip link fom pushing content around when focused */
+#skip-link.visually-hidden:focus {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    /* Ensure it is positioned on top of everything else when it is shown */
+    z-index: 999;
+}
+
+.links-nextprev {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5em 1em;
+    list-style: "";
+    border-top: 1px dashed var(--header-footer-separator-color);
+    padding: 1em 0;
+}
+.links-nextprev > * {
+    flex-grow: 1;
+}
+.links-nextprev-next {
+    text-align: right;
+}
+
+table {
+    margin: 1em 0;
+}
+table td,
+table th {
+    padding-right: 1em;
+}
+
+pre,
+code {
+    font-family: var(--font-family-monospace);
+}
+pre:not([class*="language-"]) {
+    margin: 0.5em 0;
+    line-height: 1.375; /* 22px /16 */
+    -moz-tab-size: var(--syntax-tab-size);
+    -o-tab-size: var(--syntax-tab-size);
+    tab-size: var(--syntax-tab-size);
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    direction: ltr;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    overflow-x: auto;
+}
+code {
+    word-break: break-all;
+}
+
+/* Header */
+header {
+    display: flex;
+    gap: 1em;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+}
+.home-link {
+    flex-grow: 1;
+    font-size: 1em; /* 16px /16 */
+    font-weight: 700;
+}
+.home-link:link:not(:hover) {
+    text-decoration: none;
+}
+
+/* Nav */
+.nav {
+    display: flex;
+    gap: 0.5em 1em;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.nav-item {
+    display: inline-block;
+}
+.nav-item a[href]:not(:hover) {
+    text-decoration: none;
+}
+.nav a[href][aria-current="page"] {
+    text-decoration: underline;
+}
+
+/* Posts list */
+.postlist {
+    counter-reset: start-from var(--postlist-index);
+    list-style: none;
+    padding: 0;
+    padding-left: 1.5rem;
+}
+.postlist-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    counter-increment: start-from -1;
+    margin-bottom: 1em;
+}
+.postlist-item:before {
+    display: inline-block;
+    pointer-events: none;
+    content: "" counter(start-from, decimal-leading-zero) ". ";
+    line-height: 100%;
+    text-align: right;
+    margin-left: -1.5rem;
+}
+.postlist-date,
+.postlist-item:before {
+    font-size: 0.8125em; /* 13px /16 */
+    color: var(--color-gray-90);
+}
+.postlist-date {
+    word-spacing: -0.5px;
+}
+.postlist-link {
+    font-size: 1.1875em; /* 19px /16 */
+    font-weight: 700;
+    flex-basis: calc(100% - 1.5rem);
+    padding-left: 0.25em;
+    padding-right: 0.5em;
+    text-underline-position: from-font;
+    text-underline-offset: 0;
+    text-decoration-thickness: 1px;
+}
+.postlist-item-active .postlist-link {
+    font-weight: bold;
+}
+
+/* Tags */
+.post-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: capitalize;
+    font-style: italic;
+}
+.postlist-item > .post-tag {
+    align-self: center;
+}
+
+/* Tags list */
+.post-metadata {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.post-metadata time {
+    margin-right: 1em;
+}
+
+/* Pull quote: a passage from the post set off as a highlight (often placed up front) */
+.pull-quote {
+    font-size: 1.25em; /* 20px /16 */
+    border-left: 3px dashed color-mix(in srgb, var(--header-footer-separator-color) 40%, transparent);
+    padding-left: 1em;
+    margin: 1em 0 2em;
+}
+.pull-quote p {
+    margin: 0;
+}
+
+/* Clickable pull quote: the quote links to the passage in the post it was
+   pulled from, and the passage gets a matching backlink (added by
+   _config/pullQuotes.js; same jump-link pattern as the footnote refs and
+   backlinks in layouts/post.njk) */
+.pull-quote a {
+    color: inherit;
+    text-decoration: none;
+}
+/* Underline on hover/focus to signal it's clickable (mirrors footnote refs) */
+.pull-quote a:is(:hover, :focus-visible) {
+    text-decoration: underline;
+}
+.pull-quote a:focus-visible {
+    outline: thin dotted;
+    outline-offset: 2px;
+}
+
+/* Backlink appended to the passage in the post body (mirrors the footnotes' ↩).
+   Hidden until the pull quote's jump link has actually been clicked — the
+   script in layouts/base.njk adds .pull-quote-visited to the passage on
+   click — so a reader who scrolls past the quote without clicking it never
+   sees a backlink sitting in the passage. The :target rule covers arriving
+   at the passage via its URL fragment (e.g. a reloaded or shared link).
+   Without JS the .js class is never set, so the backlink is always visible. */
+.pull-quote-back {
+    font-size: 80%;
+}
+.js .pull-quote-source .pull-quote-back {
+    display: none;
+}
+.js .pull-quote-source.pull-quote-visited .pull-quote-back,
+.js .pull-quote-source:target .pull-quote-back {
+    display: inline;
+}
+
+/* Highlight the passage you just jumped to (mirrors .Footnotes__list-item:target) */
+.pull-quote-source:target {
+    background-color: color-mix(in srgb, var(--text-color-link) 20%, transparent);
+}
+/**
+ * okaidia theme for JavaScript, CSS and HTML
+ * Loosely based on Monokai textmate theme by http://www.monokai.nl/
+ * @author ocodia
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #f8f8f2;
+	background: none;
+	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+	border-radius: 0.3em;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #272822;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #8292a2;
+}
+
+.token.punctuation {
+	color: #f8f8f2;
+}
+
+.token.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #f92672;
+}
+
+.token.boolean,
+.token.number {
+	color: #ae81ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #a6e22e;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+	color: #f8f8f2;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+	color: #e6db74;
+}
+
+.token.keyword {
+	color: #66d9ef;
+}
+
+.token.regex,
+.token.important {
+	color: #fd971f;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+/*
+ * New diff- syntax
+ */
+
+pre[class*="language-diff-"] {
+	--eleventy-code-padding: 1.25em;
+	padding-left: var(--eleventy-code-padding);
+	padding-right: var(--eleventy-code-padding);
+}
+.token.deleted {
+	background-color: hsl(0, 51%, 37%);
+	color: inherit;
+}
+.token.inserted {
+	background-color: hsl(126, 31%, 39%);
+	color: inherit;
+}
+
+/* Make the + and - characters unselectable for copy/paste */
+.token.prefix.unchanged,
+.token.prefix.inserted,
+.token.prefix.deleted {
+	-webkit-user-select: none;
+	user-select: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.token.prefix.inserted,
+.token.prefix.deleted {
+	width: var(--eleventy-code-padding);
+	background-color: rgba(0,0,0,.2);
+}
+
+/* Optional: full-width background color */
+.token.inserted:not(.prefix),
+.token.deleted:not(.prefix) {
+	display: block;
+	margin-left: calc(-1 * var(--eleventy-code-padding));
+	margin-right: calc(-1 * var(--eleventy-code-padding));
+	text-decoration: none; /* override del, ins, mark defaults */
+	color: inherit; /* override del, ins, mark defaults */
+}
+body {
+    counter-reset: footnotes;
+}
+
+/* Inline footnote reference: the text looks like regular paragraph text, the [n] marker is the eye-catching piece */
+a[role="doc-noteref"] {
+    counter-increment: footnotes;
+}
+a[role="doc-noteref"]:is(:link, :visited, :hover, :active) {
+    color: inherit;
+    text-decoration: none;
+    cursor: default;
+    outline: none;
+}
+a[role="doc-noteref"]::after {
+    content: "[" counter(footnotes) "]";
+    vertical-align: super;
+    font-size: 50%;
+    font-weight: 700;
+    margin-left: 2px;
+    color: var(--text-color-link);
+    cursor: pointer;
+}
+/* Underline the reference on hover/focus to signal it's clickable */
+a[role="doc-noteref"]:is(:hover, :focus-visible) {
+    text-decoration: underline;
+}
+a[role="doc-noteref"]:focus-visible::after {
+    outline: thin dotted;
+    outline-offset: 2px;
+}
+
+/* Footnotes section at the bottom of the post */
+.Footnotes {
+    border-top: 1px dashed var(--header-footer-separator-color);
+    margin-top: 1em;
+    padding-top: 1em;
+    font-size: 0.875em; /* 14px /16 */
+}
+.Footnotes__title {
+    font-size: 1em; /* back to the post's base font size */
+}
+.Footnotes__list {
+    padding-left: 1.5em;
+}
+
+/* Highlight the footnote you just clicked */
+.Footnotes__list-item:target {
+    background-color: color-mix(in srgb, var(--text-color-link) 20%, transparent);
+}
+[role="doc-backlink"] {
+    font-size: 80%;
+}</style>
+		
+		
+	</head>
+	<body>
+		<a href="#main" id="skip-link" class="visually-hidden">Skip to main content</a>
+
+		<header>
+			<a href="/" class="home-link">Zach Kehs</a>
+			<nav>
+				<h2 class="visually-hidden" id="top-level-navigation-menu">Top level navigation menu</h2>
+				<ul class="nav">
+					<li class="nav-item"><a href="/">Home</a></li>
+					<li class="nav-item"><a href="/blog/">Archive</a></li>
+					<li class="nav-item"><a href="/about/">About</a></li>
+					<li class="nav-item"><a href="/feed/feed.xml">Feed</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main id="main">
+			<heading-anchors>
+				
+
+
+
+
+
+<h1 id="theres-no-limit-to-how-bad-code-can-get">There&#39;s No Limit to How Bad Code Can Get</h1>
+
+<ul class="post-metadata">
+	<li><time datetime="2026-09-04">04 September 2026</time></li>
+	<li><a href="/tags/software-engineering/" class="post-tag">software-engineering</a>, </li>
+	<li><a href="/tags/essay/" class="post-tag"> essay</a></li>
+</ul>
+
+<p>TL;DR: Metaphors like &quot;a sinking ship&quot; are often used to describe codebases, but are misleading.
+A <em>business</em> will sink long before code quality reaches a hypothetical floor. Technical debt has
+no bankruptcy, no clean reset, so metaphors that imply an end provide a false sense of security.</p>
+<blockquote class="pull-quote" id="pull-quote">
+<p><a href="#pull-quote-source">Software is in the domain of the abstract. It is not like a building, or a bridge, that is in
+the physical realm where you can see and feel the nature of the thing. If you continue to add
+floors and rooms to a building forever, it will collapse. Software faces no such constraint.
+The code can <strong>always</strong> get worse. There can <strong>always</strong> be a new layer of indirection
+or a reduction in performance.</a></p>
+</blockquote>
+<h2 id="1-boarding-a-sinking-ship">1: Boarding a sinking ship</h2>
+<p>Over a decade ago I had my first encounter with an <em>ugly</em> legacy codebase. I had just joined Amazon
+as a &quot;Software Development Engineer&quot;, fresh out of university, and worked on a team that owned code
+related to <a class="Footnotes__ref" href="#1-note" id="1-ref" aria-describedby="footnotes-label" role="doc-noteref">processing orders</a>. On the surface, what our code had to
+do seemed simple. Processing an order involved writing some things to a database and calling into
+services owned by other teams, either to ask validity questions or to update bookkeeping on their
+end. My colleagues and I estimated that a sufficient implementation of this system shouldn't need
+more than two dozen strong engineers to maintain and evolve. Yet, our organization was
+hundreds of people, and the system had grown so large and complex that it had become impossible to
+learn how it all worked.</p>
+<p>It was rare to stay longer than a few years in this org, and institutional knowledge had eroded. This
+resulted in code that was full of <a class="Footnotes__ref" href="#2-note" id="2-ref" aria-describedby="footnotes-label" role="doc-noteref">&quot;haunted graveyards&quot;</a>. Fear suppressed any (under-rewarded) efforts to
+simplify existing systems. The business rules for what had to be done for each type of order were
+decided by people long ago who weren't around anymore. These rules could sometimes be found in a
+hopelessly out of date file proudly calling itself a 'living document', but often the rules simply
+were not written anywhere we could find. Tracing behavior yourself wasn't easy either because much
+of the system lived across team boundaries where the code was not easy to access.</p>
+<p>When some obscure process wasn't happening with an order that should have been happening, our pagers
+would angrily notify us that someone in our tangled web of service dependencies was unhappy. As a
+result of this feedback mechanism, the system stayed afloat, but remained difficult to change
+and had <a class="Footnotes__ref" href="#3-note" id="3-ref" aria-describedby="footnotes-label" role="doc-noteref">abysmal performance</a>. Despite this, new layers were constantly added to support the latest
+Amazon products and features. This felt unsustainable, and this feeling is what makes me and others
+reach for a &quot;sinking ship&quot; as a metaphor to describe an organization that doesn't pay down their
+technical debt.</p>
+<p>To their credit, there were always <a class="Footnotes__ref" href="#4-note" id="4-ref" aria-describedby="footnotes-label" role="doc-noteref">ongoing attempts</a> to fix the architecture, and these usually
+went as follows: A new manager or senior engineer joins the organization and observes that &quot;things are bad&quot;.
+Leadership at the organization agrees and <em>wants</em> to make things better, but there are no engineers
+available, so each fix attempt includes adding new engineers and <a class="Footnotes__ref" href="#5-note" id="5-ref" aria-describedby="footnotes-label" role="doc-noteref">teams</a>.</p>
+<p>The re-architectures were always a failure: The system required <em>years</em> of study to properly
+understand and was constantly changing. It's not politically viable to take so long to design a
+fix for the system, so naturally everyone attempting to fix things must work with
+incomplete information. Some of this impatience is from within: If you are trying to
+design a grand fix for such a prominently painful architecture, you are doing it in part because
+you want a promotion (and you don't want to wait too long for a promotion).</p>
+<p>Each cycle would end with the remains of the new attempt permanently grafted onto our architecture
+and the leading engineer having departed with their requisite promotion. The increased headcount
+stays because the migration plans are too painful and unpopular to actually finish. <a class="Footnotes__ref" href="#6-note" id="6-ref" aria-describedby="footnotes-label" role="doc-noteref">The cycle
+continued</a> as it had long before I had arrived. The sinking ship seemed to have no end.</p>
+<h2 id="2-where-does-it-end">2: Where <em>does</em> it end?</h2>
+<p>About three years after I had left, I was chatting on the phone with a former colleague from that
+team. He had recently left the company after an impressive 6-year tenure and had witnessed the
+cycle complete again.  We were commiserating, and both of us reached for the sinking ship metaphor
+to describe the org, despite us having left years apart.</p>
+<p>&quot;Where does it end? How does it end?&quot; he asked me, curious to hear my take on what would happen to
+that org in the future.</p>
+<p>The question and metaphor didn't sit right with me, and I realized the question conflated two
+things. Are we talking about the code, or are we talking about the company?</p>
+<p>A <em>business</em> can sink. Bad software is a real drag on the business, but how much that actually
+matters depends on a lot of factors. For a company with plenty of cash flow like Amazon, they
+can tolerate some bouts of internal rot here and there before it has any meaningful impact on their
+bottom line. For another company whose business model is more sensitive to software quality, bad
+software may be a latent invitation to a competitor to deliver the metaphorical hull breach (and no,
+<a class="Footnotes__ref" href="#7-note" id="7-ref" aria-describedby="footnotes-label" role="doc-noteref">LLMs don't change this</a>).</p>
+<p>For the code, the sinking doesn't end. It's an <em>infinitely</em> sinking ship, because there is no limit
+to how bad code can be. You didn't escape a building that was about to collapse. It is in a constant,
+neverending state of collapse. There's something wrong with using words that imply there's an end.</p>
+<p id="pull-quote-source" class="pull-quote-source">Software is in the domain of the abstract. It is not like a building, or a bridge, that is in the
+physical realm where you can see and feel the nature of the thing. If you continue
+to add floors and rooms to a building forever, it will collapse. Software faces no such constraint.
+The code can <em>always</em> get worse. There can <em>always</em> be a new layer of indirection or a
+reduction in performance. <a href="#pull-quote" class="pull-quote-back" aria-label="Back to pull quote" role="doc-backlink">↩</a></p>
+<p>The pedants will rightfully point out that software can completely fail to function if it gets bad enough.
+In practice, such breaking changes are quickly reverted. The thousands of changes that came before
+to make the code worse are not. The software <a class="Footnotes__ref" href="#8-note" id="8-ref" aria-describedby="footnotes-label" role="doc-noteref">continues to 'work'</a>. Other cases without a single
+breaking change to revert are where the ballooning costs of the bad software eclipse its benefit,
+or if development velocity approaches zero because nothing can be shipped without a breakage. In all
+of these cases, it is the business that dies long before the code hits any hypothetical floor (so
+don't act like there's a floor!).</p>
+<h2 id="3-technical-debt-has-no-bankruptcy">3: Technical debt has no bankruptcy</h2>
+<p>The drag of bad software on the business is a real threat and the reason why good organizations
+pay attention to code quality. Since there is no abrupt failure threshold associated with software
+quality, it's often described as &quot;technical debt&quot;, which can be a better metaphor (debt can
+compound forever) but is also imperfect.</p>
+<p>Debt has an 'ending' point because bankruptcy is a forced reset, and the equivalent
+in software is a full rewrite, which is <a href="https://www.joelonsoftware.com/2000/04/06/things-you-should-never-do-part-i/">rarely an option</a>.</p>
+<p>The closest option that a mega-corp such as
+Amazon has is what I call a side-channel, where they split off a team that builds a new, completely
+disconnected system with only the minimal set of features needed for some new use case. Moving
+forward they then have the option to direct more new use-cases at this simplified, separate
+system. Importantly, the old system must remain and be maintained (it's not an 'end'), because all
+the old use-cases still exist, and new organizational-level pain is felt whenever <a class="Footnotes__ref" href="#9-note" id="9-ref" aria-describedby="footnotes-label" role="doc-noteref">deciding which to
+use in the future</a>. That's not exactly slate-clearing like we think of a bankruptcy.</p>
+<p>The wrong mental models about software lead to bad decisions. If a 'hard reset' escape hatch exists,
+then punting technical debt doesn't seem so bad. The belief that a rewrite around the corner could
+fix things results in worse decisions today, because the decision-maker today doesn't understand
+that there is no escape hatch.</p>
+<p>Metaphors like a &quot;collapsing building&quot; or a &quot;sinking ship&quot; are not appropriate for software, yet we
+can embrace them anyway to emphasize what makes software different. The building is infinitely
+collapsing. The ship is infinitely sinking. There is no natural constraint that will wake your
+project manager up and force them to deal with technical debt. Software will only stay high quality
+if we put in the effort to stop the sinking. Grab a bucket.</p>
+
+
+
+  <footer role="doc-endnotes" class="Footnotes">
+    <h2 id="footnotes-label" class="Footnotes__title">Footnotes</h2>
+    <ol class="Footnotes__list"><li id="1-note" class="Footnotes__list-item">I'm deliberately leaving plenty of details out in this story. The point is not to cast blame on individuals or the org (we were trying our best with the situation we were given). This retelling is imperfect and for illustrative purposes.
+ <a class="Footnotes__back-link" href="#1-ref" aria-label="Back to reference 1" role="doc-backlink">↩</a></li>
+<li id="2-note" class="Footnotes__list-item">This is a term that I believe originated from Google's engineering organization. It refers to a section of code that is poorly understood and so people are afraid of touching it.
+ <a class="Footnotes__back-link" href="#2-ref" aria-label="Back to reference 2" role="doc-backlink">↩</a></li>
+<li id="3-note" class="Footnotes__list-item">It was cheaper for the org to throw more servers at the problem than spend any serious efforts on performance. I think at one point we could only process 1-2 orders per second on a single (beefy) machine. Like the org size, this didn't line up with our intuition, which suggested we should be handling at least two orders of magnitude more.
+ <a class="Footnotes__back-link" href="#3-ref" aria-label="Back to reference 3" role="doc-backlink">↩</a></li>
+<li id="4-note" class="Footnotes__list-item">These lofty architectural goals became something of an inside joke between my colleagues and I. We would refer to them as a &quot;glorious future&quot;, heavily laden with sarcasm: &quot;Once we are in the $NEXT_ARCHITECTURE glorious future, this won't be a problem!&quot;.
+ <a class="Footnotes__back-link" href="#4-ref" aria-label="Back to reference 4" role="doc-backlink">↩</a></li>
+<li id="5-note" class="Footnotes__list-item">When speaking of excessive organizational growth and friction, I feel obligated to point to <a href="https://www.youtube.com/watch?v=1KeYzjILqDo">my favorite Bryan Cantril talk</a> if you want a good laugh.
+ <a class="Footnotes__back-link" href="#5-ref" aria-label="Back to reference 5" role="doc-backlink">↩</a></li>
+<li id="6-note" class="Footnotes__list-item">Had I not left, I would have been taking on the ownership of at least some of that new architecture as a plan to get myself promoted further, and I don't think I would have been able to do much better of a job at &quot;fixing&quot; things. A meta-point here is that I think the design of the organization and the incentives involved made good outcomes near-impossible.
+ <a class="Footnotes__back-link" href="#6-ref" aria-label="Back to reference 6" role="doc-backlink">↩</a></li>
+<li id="7-note" class="Footnotes__list-item">For much of this post I deliberately minimized discussion of LLMs, since that will age faster than anything else I write, but I do feel obligated to address them at least partially. My opinion: If your company incentives and culture are the cause of your software degrading in quality, LLMs are not going to change that. They will accelerate you along the trajectory you are already on. I have more thoughts on this topic but I didn't want to derail this essay, so I'll make an optional-reading follow-up post on this later. <a class="Footnotes__back-link" href="#7-ref" aria-label="Back to reference 7" role="doc-backlink">↩</a></li>
+<li id="8-note" class="Footnotes__list-item"><a href="https://github.com/enterprisequalitycoding/fizzbuzzenterpriseedition">Enterprise fizz buzz</a> is something of an art project that deliberately demonstrates this aspect of software.
+ <a class="Footnotes__back-link" href="#8-ref" aria-label="Back to reference 8" role="doc-backlink">↩</a></li>
+<li id="9-note" class="Footnotes__list-item">'Side channels' also happened multiple times at Amazon, albeit at a slower pace than the re-architectures I described in my tale. At a mega-corp, I would say this kind of soft-deprecation is the most likely obituary a painful legacy system gets. Unlike a <a href="https://martinfowler.com/bliki/StranglerFigApplication.html">strangler fig</a> pattern that involves a proxy being installed and seeks to replace the existing system, these are built without cooperation (and so there is no proxy layer) by design.
+ <a class="Footnotes__back-link" href="#9-ref" aria-label="Back to reference 9" role="doc-backlink">↩</a></li></ol>
+  </footer>
+<ul class="links-nextprev"><li class="links-nextprev-prev">← Previous<br> <a href="/blog/zachs_gamedev_story/">Zach&#39;s GameDev Story</a></li>
+</ul>
+
+			</heading-anchors>
+		</main>
+
+		<!--<footer>
+			<p>
+				<em>Blah blah blah, this is a footer if you want one.</em>
+			</p>
+		</footer>-->
+
+		<!-- This page `/blog/theres_no_limit_to_how_bad_code_can_get/` was built on 2026-09-05T05:27:36.850Z -->
+		<script type="module" src="/dist/sq7_6uXRHC.js"></script>
+
+		<!-- SimpleAnalytics integration -->
+		<script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+	</body>
+</html>

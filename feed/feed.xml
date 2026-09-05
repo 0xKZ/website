@@ -5,11 +5,119 @@
   <subtitle>A game developer that writes about stuff.</subtitle>
   <link href="https://zachkehs.com/feed/feed.xml" rel="self" />
   <link href="https://zachkehs.com/" />
-  <updated>2025-12-26T00:00:00Z</updated>
+  <updated>2026-09-04T00:00:00Z</updated>
   <id>https://zachkehs.com/</id>
   <author>
     <name>Zach Kehs</name>
   </author>
+  <entry>
+    <title>There&#39;s No Limit to How Bad Code Can Get</title>
+    <link href="https://zachkehs.com/blog/theres_no_limit_to_how_bad_code_can_get/" />
+    <updated>2026-09-04T00:00:00Z</updated>
+    <id>https://zachkehs.com/blog/theres_no_limit_to_how_bad_code_can_get/</id>
+    <content type="html">&lt;p&gt;TL;DR: Metaphors like &amp;quot;a sinking ship&amp;quot; are often used to describe codebases, but are misleading.
+A &lt;em&gt;business&lt;/em&gt; will sink long before code quality reaches a hypothetical floor. Technical debt has
+no bankruptcy, no clean reset, so metaphors that imply an end provide a false sense of security.&lt;/p&gt;
+&lt;blockquote class=&quot;pull-quote&quot; id=&quot;pull-quote&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;#pull-quote-source&quot;&gt;Software is in the domain of the abstract. It is not like a building, or a bridge, that is in
+the physical realm where you can see and feel the nature of the thing. If you continue to add
+floors and rooms to a building forever, it will collapse. Software faces no such constraint.
+The code can &lt;strong&gt;always&lt;/strong&gt; get worse. There can &lt;strong&gt;always&lt;/strong&gt; be a new layer of indirection
+or a reduction in performance.&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;1-boarding-a-sinking-ship&quot;&gt;1: Boarding a sinking ship&lt;/h2&gt;
+&lt;p&gt;Over a decade ago I had my first encounter with an &lt;em&gt;ugly&lt;/em&gt; legacy codebase. I had just joined Amazon
+as a &amp;quot;Software Development Engineer&amp;quot;, fresh out of university, and worked on a team that owned code
+related to &lt;a class=&quot;Footnotes__ref&quot; href=&quot;https://zachkehs.com/blog/theres_no_limit_to_how_bad_code_can_get/#1-note&quot; id=&quot;1-ref&quot; aria-describedby=&quot;footnotes-label&quot; role=&quot;doc-noteref&quot;&gt;processing orders&lt;/a&gt;. On the surface, what our code had to
+do seemed simple. Processing an order involved writing some things to a database and calling into
+services owned by other teams, either to ask validity questions or to update bookkeeping on their
+end. My colleagues and I estimated that a sufficient implementation of this system shouldn&#39;t need
+more than two dozen strong engineers to maintain and evolve. Yet, our organization was
+hundreds of people, and the system had grown so large and complex that it had become impossible to
+learn how it all worked.&lt;/p&gt;
+&lt;p&gt;It was rare to stay longer than a few years in this org, and institutional knowledge had eroded. This
+resulted in code that was full of &lt;a class=&quot;Footnotes__ref&quot; href=&quot;https://zachkehs.com/blog/theres_no_limit_to_how_bad_code_can_get/#2-note&quot; id=&quot;2-ref&quot; aria-describedby=&quot;footnotes-label&quot; role=&quot;doc-noteref&quot;&gt;&amp;quot;haunted graveyards&amp;quot;&lt;/a&gt;. Fear suppressed any (under-rewarded) efforts to
+simplify existing systems. The business rules for what had to be done for each type of order were
+decided by people long ago who weren&#39;t around anymore. These rules could sometimes be found in a
+hopelessly out of date file proudly calling itself a &#39;living document&#39;, but often the rules simply
+were not written anywhere we could find. Tracing behavior yourself wasn&#39;t easy either because much
+of the system lived across team boundaries where the code was not easy to access.&lt;/p&gt;
+&lt;p&gt;When some obscure process wasn&#39;t happening with an order that should have been happening, our pagers
+would angrily notify us that someone in our tangled web of service dependencies was unhappy. As a
+result of this feedback mechanism, the system stayed afloat, but remained difficult to change
+and had &lt;a class=&quot;Footnotes__ref&quot; href=&quot;https://zachkehs.com/blog/theres_no_limit_to_how_bad_code_can_get/#3-note&quot; id=&quot;3-ref&quot; aria-describedby=&quot;footnotes-label&quot; role=&quot;doc-noteref&quot;&gt;abysmal performance&lt;/a&gt;. Despite this, new layers were constantly added to support the latest
+Amazon products and features. This felt unsustainable, and this feeling is what makes me and others
+reach for a &amp;quot;sinking ship&amp;quot; as a metaphor to describe an organization that doesn&#39;t pay down their
+technical debt.&lt;/p&gt;
+&lt;p&gt;To their credit, there were always &lt;a class=&quot;Footnotes__ref&quot; href=&quot;https://zachkehs.com/blog/theres_no_limit_to_how_bad_code_can_get/#4-note&quot; id=&quot;4-ref&quot; aria-describedby=&quot;footnotes-label&quot; role=&quot;doc-noteref&quot;&gt;ongoing attempts&lt;/a&gt; to fix the architecture, and these usually
+went as follows: A new manager or senior engineer joins the organization and observes that &amp;quot;things are bad&amp;quot;.
+Leadership at the organization agrees and &lt;em&gt;wants&lt;/em&gt; to make things better, but there are no engineers
+available, so each fix attempt includes adding new engineers and &lt;a class=&quot;Footnotes__ref&quot; href=&quot;https://zachkehs.com/blog/theres_no_limit_to_how_bad_code_can_get/#5-note&quot; id=&quot;5-ref&quot; aria-describedby=&quot;footnotes-label&quot; role=&quot;doc-noteref&quot;&gt;teams&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The re-architectures were always a failure: The system required &lt;em&gt;years&lt;/em&gt; of study to properly
+understand and was constantly changing. It&#39;s not politically viable to take so long to design a
+fix for the system, so naturally everyone attempting to fix things must work with
+incomplete information. Some of this impatience is from within: If you are trying to
+design a grand fix for such a prominently painful architecture, you are doing it in part because
+you want a promotion (and you don&#39;t want to wait too long for a promotion).&lt;/p&gt;
+&lt;p&gt;Each cycle would end with the remains of the new attempt permanently grafted onto our architecture
+and the leading engineer having departed with their requisite promotion. The increased headcount
+stays because the migration plans are too painful and unpopular to actually finish. &lt;a class=&quot;Footnotes__ref&quot; href=&quot;https://zachkehs.com/blog/theres_no_limit_to_how_bad_code_can_get/#6-note&quot; id=&quot;6-ref&quot; aria-describedby=&quot;footnotes-label&quot; role=&quot;doc-noteref&quot;&gt;The cycle
+continued&lt;/a&gt; as it had long before I had arrived. The sinking ship seemed to have no end.&lt;/p&gt;
+&lt;h2 id=&quot;2-where-does-it-end&quot;&gt;2: Where &lt;em&gt;does&lt;/em&gt; it end?&lt;/h2&gt;
+&lt;p&gt;About three years after I had left, I was chatting on the phone with a former colleague from that
+team. He had recently left the company after an impressive 6-year tenure and had witnessed the
+cycle complete again.  We were commiserating, and both of us reached for the sinking ship metaphor
+to describe the org, despite us having left years apart.&lt;/p&gt;
+&lt;p&gt;&amp;quot;Where does it end? How does it end?&amp;quot; he asked me, curious to hear my take on what would happen to
+that org in the future.&lt;/p&gt;
+&lt;p&gt;The question and metaphor didn&#39;t sit right with me, and I realized the question conflated two
+things. Are we talking about the code, or are we talking about the company?&lt;/p&gt;
+&lt;p&gt;A &lt;em&gt;business&lt;/em&gt; can sink. Bad software is a real drag on the business, but how much that actually
+matters depends on a lot of factors. For a company with plenty of cash flow like Amazon, they
+can tolerate some bouts of internal rot here and there before it has any meaningful impact on their
+bottom line. For another company whose business model is more sensitive to software quality, bad
+software may be a latent invitation to a competitor to deliver the metaphorical hull breach (and no,
+&lt;a class=&quot;Footnotes__ref&quot; href=&quot;https://zachkehs.com/blog/theres_no_limit_to_how_bad_code_can_get/#7-note&quot; id=&quot;7-ref&quot; aria-describedby=&quot;footnotes-label&quot; role=&quot;doc-noteref&quot;&gt;LLMs don&#39;t change this&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;For the code, the sinking doesn&#39;t end. It&#39;s an &lt;em&gt;infinitely&lt;/em&gt; sinking ship, because there is no limit
+to how bad code can be. You didn&#39;t escape a building that was about to collapse. It is in a constant,
+neverending state of collapse. There&#39;s something wrong with using words that imply there&#39;s an end.&lt;/p&gt;
+&lt;p id=&quot;pull-quote-source&quot; class=&quot;pull-quote-source&quot;&gt;Software is in the domain of the abstract. It is not like a building, or a bridge, that is in the
+physical realm where you can see and feel the nature of the thing. If you continue
+to add floors and rooms to a building forever, it will collapse. Software faces no such constraint.
+The code can &lt;em&gt;always&lt;/em&gt; get worse. There can &lt;em&gt;always&lt;/em&gt; be a new layer of indirection or a
+reduction in performance. &lt;a href=&quot;#pull-quote&quot; class=&quot;pull-quote-back&quot; aria-label=&quot;Back to pull quote&quot; role=&quot;doc-backlink&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The pedants will rightfully point out that software can completely fail to function if it gets bad enough.
+In practice, such breaking changes are quickly reverted. The thousands of changes that came before
+to make the code worse are not. The software &lt;a class=&quot;Footnotes__ref&quot; href=&quot;https://zachkehs.com/blog/theres_no_limit_to_how_bad_code_can_get/#8-note&quot; id=&quot;8-ref&quot; aria-describedby=&quot;footnotes-label&quot; role=&quot;doc-noteref&quot;&gt;continues to &#39;work&#39;&lt;/a&gt;. Other cases without a single
+breaking change to revert are where the ballooning costs of the bad software eclipse its benefit,
+or if development velocity approaches zero because nothing can be shipped without a breakage. In all
+of these cases, it is the business that dies long before the code hits any hypothetical floor (so
+don&#39;t act like there&#39;s a floor!).&lt;/p&gt;
+&lt;h2 id=&quot;3-technical-debt-has-no-bankruptcy&quot;&gt;3: Technical debt has no bankruptcy&lt;/h2&gt;
+&lt;p&gt;The drag of bad software on the business is a real threat and the reason why good organizations
+pay attention to code quality. Since there is no abrupt failure threshold associated with software
+quality, it&#39;s often described as &amp;quot;technical debt&amp;quot;, which can be a better metaphor (debt can
+compound forever) but is also imperfect.&lt;/p&gt;
+&lt;p&gt;Debt has an &#39;ending&#39; point because bankruptcy is a forced reset, and the equivalent
+in software is a full rewrite, which is &lt;a href=&quot;https://www.joelonsoftware.com/2000/04/06/things-you-should-never-do-part-i/&quot;&gt;rarely an option&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The closest option that a mega-corp such as
+Amazon has is what I call a side-channel, where they split off a team that builds a new, completely
+disconnected system with only the minimal set of features needed for some new use case. Moving
+forward they then have the option to direct more new use-cases at this simplified, separate
+system. Importantly, the old system must remain and be maintained (it&#39;s not an &#39;end&#39;), because all
+the old use-cases still exist, and new organizational-level pain is felt whenever &lt;a class=&quot;Footnotes__ref&quot; href=&quot;https://zachkehs.com/blog/theres_no_limit_to_how_bad_code_can_get/#9-note&quot; id=&quot;9-ref&quot; aria-describedby=&quot;footnotes-label&quot; role=&quot;doc-noteref&quot;&gt;deciding which to
+use in the future&lt;/a&gt;. That&#39;s not exactly slate-clearing like we think of a bankruptcy.&lt;/p&gt;
+&lt;p&gt;The wrong mental models about software lead to bad decisions. If a &#39;hard reset&#39; escape hatch exists,
+then punting technical debt doesn&#39;t seem so bad. The belief that a rewrite around the corner could
+fix things results in worse decisions today, because the decision-maker today doesn&#39;t understand
+that there is no escape hatch.&lt;/p&gt;
+&lt;p&gt;Metaphors like a &amp;quot;collapsing building&amp;quot; or a &amp;quot;sinking ship&amp;quot; are not appropriate for software, yet we
+can embrace them anyway to emphasize what makes software different. The building is infinitely
+collapsing. The ship is infinitely sinking. There is no natural constraint that will wake your
+project manager up and force them to deal with technical debt. Software will only stay high quality
+if we put in the effort to stop the sinking. Grab a bucket.&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Zach&#39;s GameDev Story</title>
     <link href="https://zachkehs.com/blog/zachs_gamedev_story/" />
