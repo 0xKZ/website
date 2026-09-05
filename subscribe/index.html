@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script>document.documentElement.classList.add("js")</script>
 		<title>Zach Kehs</title>
 		<meta name="description" content="A game developer that writes about stuff.">
 		<link rel="canonical" href="https://zachkehs.com/subscribe/">
@@ -348,15 +349,29 @@ header {
     outline-offset: 2px;
 }
 
-/* Backlink appended to the passage in the post body (mirrors the footnotes' ↩) */
+/* Backlink appended to the passage in the post body (mirrors the footnotes' ↩).
+   Hidden until the pull quote's jump link has actually been clicked — the
+   script in layouts/base.njk adds .pull-quote-visited to the passage on
+   click — so a reader who scrolls past the quote without clicking it never
+   sees a backlink sitting in the passage. The :target rule covers arriving
+   at the passage via its URL fragment (e.g. a reloaded or shared link).
+   Without JS the .js class is never set, so the backlink is always visible. */
 .pull-quote-back {
     font-size: 80%;
+}
+.js .pull-quote-source .pull-quote-back {
+    display: none;
+}
+.js .pull-quote-source.pull-quote-visited .pull-quote-back,
+.js .pull-quote-source:target .pull-quote-back {
+    display: inline;
 }
 
 /* Highlight the passage you just jumped to (mirrors .Footnotes__list-item:target) */
 .pull-quote-source:target {
     background-color: color-mix(in srgb, var(--text-color-link) 20%, transparent);
 }</style>
+		
 		
 	</head>
 	<body>
@@ -394,8 +409,8 @@ I use it in places where the subscribe widget is too big and takes up a lot of s
 			</p>
 		</footer>-->
 
-		<!-- This page `/subscribe/` was built on 2026-09-04T21:42:43.165Z -->
-		<script type="module" src="/dist/cC8wS6ZjFU.js"></script>
+		<!-- This page `/subscribe/` was built on 2026-09-05T00:04:03.504Z -->
+		<script type="module" src="/dist/sq7_6uXRHC.js"></script>
 
 		<!-- SimpleAnalytics integration -->
 		<script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script>

@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script>document.documentElement.classList.add("js")</script>
 		<title>Zach&#39;s GameDev Story</title>
 		<meta name="description" content="I ramble for far too long about game development, too long for the &#39;About&#39; page.">
 		<link rel="canonical" href="https://zachkehs.com/blog/zachs_gamedev_story/">
@@ -350,9 +351,22 @@ header {
     outline-offset: 2px;
 }
 
-/* Backlink appended to the passage in the post body (mirrors the footnotes' ↩) */
+/* Backlink appended to the passage in the post body (mirrors the footnotes' ↩).
+   Hidden until the pull quote's jump link has actually been clicked — the
+   script in layouts/base.njk adds .pull-quote-visited to the passage on
+   click — so a reader who scrolls past the quote without clicking it never
+   sees a backlink sitting in the passage. The :target rule covers arriving
+   at the passage via its URL fragment (e.g. a reloaded or shared link).
+   Without JS the .js class is never set, so the backlink is always visible. */
 .pull-quote-back {
     font-size: 80%;
+}
+.js .pull-quote-source .pull-quote-back {
+    display: none;
+}
+.js .pull-quote-source.pull-quote-visited .pull-quote-back,
+.js .pull-quote-source:target .pull-quote-back {
+    display: inline;
 }
 
 /* Highlight the passage you just jumped to (mirrors .Footnotes__list-item:target) */
@@ -581,6 +595,7 @@ a[role="doc-noteref"]:focus-visible::after {
     font-size: 80%;
 }</style>
 		
+		
 	</head>
 	<body>
 		<a href="#main" id="skip-link" class="visually-hidden">Skip to main content</a>
@@ -695,8 +710,8 @@ a[role="doc-noteref"]:focus-visible::after {
 			</p>
 		</footer>-->
 
-		<!-- This page `/blog/zachs_gamedev_story/` was built on 2026-09-04T21:42:43.163Z -->
-		<script type="module" src="/dist/cC8wS6ZjFU.js"></script>
+		<!-- This page `/blog/zachs_gamedev_story/` was built on 2026-09-05T00:04:03.501Z -->
+		<script type="module" src="/dist/sq7_6uXRHC.js"></script>
 
 		<!-- SimpleAnalytics integration -->
 		<script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script>

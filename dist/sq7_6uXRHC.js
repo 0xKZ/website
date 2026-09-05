@@ -229,3 +229,9 @@ class HeadingAnchors extends HTMLElement {
 HeadingAnchors.register();
 
 export { HeadingAnchors }
+document.addEventListener("click", (event) => {
+				const link = event.target.closest?.(".pull-quote a[href^='#']");
+				if (!link) return;
+				const id = decodeURIComponent(link.hash.slice(1));
+				document.getElementById(id)?.classList.add("pull-quote-visited");
+			});
