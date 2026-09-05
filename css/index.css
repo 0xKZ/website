@@ -301,7 +301,7 @@ header {
 /* Pull quote: a passage from the post set off as a highlight (often placed up front) */
 .pull-quote {
     font-size: 1.25em; /* 20px /16 */
-    border-left: 3px dashed color-mix(in srgb, var(--header-footer-separator-color) 60%, transparent);
+    border-left: 3px dashed color-mix(in srgb, var(--header-footer-separator-color) 40%, transparent);
     padding-left: 1em;
     margin: 1em 0 2em;
 }
