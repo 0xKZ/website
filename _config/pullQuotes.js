@@ -10,7 +10,11 @@ import posthtml from "posthtml";
  *   - the quote text becomes a link that jumps to the original passage in the
  *     post body,
  *   - a small "↩" backlink is appended to that passage, jumping back to the
- *     quote (same backlink pattern as eleventy-plugin-footnotes).
+ *     quote (same backlink pattern as eleventy-plugin-footnotes). The
+ *     backlink is hidden until the quote's jump link is actually clicked (see
+ *     the .pull-quote-back rules in css/index.css and the click script in
+ *     layouts/base.njk), so readers who scroll past the quote without
+ *     clicking it don't see a backlink in the passage.
  *
  * The passage is found automatically by matching the quote's text against the
  * text of every `<p>` on the page (case- and whitespace-insensitive; the quote

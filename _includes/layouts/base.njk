@@ -3,6 +3,11 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		{#- Mark <html> with a `js` class so CSS can gate enhancements that
+		    need JavaScript (e.g. hiding pull-quote backlinks until the quote
+		    is clicked). eleventy:ignore keeps it inline instead of moving it
+		    to the per-page bundle, so it runs before first paint. #}
+		<script eleventy:ignore>document.documentElement.classList.add("js")</script>
 		<title>{{ title or metadata.title }}</title>
 		<meta name="description" content="{{ description or metadata.description }}">
 
@@ -68,6 +73,18 @@
 
 		{#- Add the heading-anchors web component to the JavaScript bundle #}
 		<script type="module">{% include "node_modules/@zachleat/heading-anchors/heading-anchors.js" %}</script>
+
+		{#- Reveal pull-quote backlinks only after the pull quote has actually
+		    been clicked (the transform that adds them: _config/pullQuotes.js,
+		    the display rules: css/index.css) #}
+		<script type="module">
+			document.addEventListener("click", (event) => {
+				const link = event.target.closest?.(".pull-quote a[href^='#']");
+				if (!link) return;
+				const id = decodeURIComponent(link.hash.slice(1));
+				document.getElementById(id)?.classList.add("pull-quote-visited");
+			});
+		</script>
 	</head>
 	<body>
 		<a href="#main" id="skip-link" class="visually-hidden">Skip to main content</a>
