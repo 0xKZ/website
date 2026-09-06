@@ -1,5 +1,8 @@
----
-eleventyExcludeFromCollections: true
+---js
+const eleventyNavigation = {
+	key: "Subscribe",
+	order: 5
+};
 ---
 
 <!-- This is just a custom landing page to hold a subscribe widget.
