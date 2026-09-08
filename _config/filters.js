@@ -14,7 +14,9 @@ export default function(eleventyConfig) {
 
 	eleventyConfig.addFilter("htmlDateString", (dateObj) => {
 		// dateObj input: https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-date-string
-		return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat('yyyy-LL-dd');
+		// MM, not LL: the <time datetime> attribute must be a valid (locale-
+		// independent) date string, and LL is the *localized* month number.
+		return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat('yyyy-MM-dd');
 	});
 
 	// Get the first `n` elements of a collection.

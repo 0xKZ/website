@@ -28,7 +28,16 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
 
       - run: npm ci --no-audit --no-fund
-      - run: npm run build-ghpages
+
+      # npm test builds a throwaway copy of content/ in the OS temp dir
+      # (unique per run, removed at the end), so it can't contaminate the
+      # deploy. npm run build removes _site/ first, so the checks validate
+      # and Deploy publish only that build's output.
+      - name: Test post ordering
+        run: npm test
+
+      - name: Build site
+        run: npm run build
 
       - name: Check internal links
         run: npm run check:links

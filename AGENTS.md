@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Eleventy v3 static site (Nunjucks). `npm start` = dev server, `npm run build` = static build to `_site/`.
+Eleventy v3 static site (Nunjucks). `npm start` = dev server, `npm run build` = static build to `_site/`, `npm test` = post-ordering test (builds a throwaway copy of `content/` in the OS temp dir; never touches the repo).
 
 - Templates: layouts in `_includes/layouts/`, pages/posts in `content/` (each blog post is a folder in `content/blog/`), site data in `_data/` (zod-validated).
 - Custom filters live in `_config/filters.js`; plugins/bundles are wired in `eleventy.config.js`.

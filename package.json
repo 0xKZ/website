@@ -6,15 +6,13 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "build": "npx @11ty/eleventy",
+    "build": "node -e \"require('node:fs').rmSync('_site',{recursive:true,force:true})\" && npx @11ty/eleventy",
     "check:links": "node scripts/check-links.mjs",
     "check:html": "html-validate _site --ext=html",
     "check:content": "node scripts/check-content.mjs",
     "check": "npm run check:links && npm run check:html && npm run check:content",
-    "build-nocolor": "cross-env NODE_DISABLE_COLORS=1 npx @11ty/eleventy",
-    "build-ghpages": "npx @11ty/eleventy",
+    "test": "node scripts/test-post-order.mjs",
     "start": "npx @11ty/eleventy --serve --quiet",
-    "start-ghpages": "npx @11ty/eleventy --serve --quiet",
     "debug": "cross-env DEBUG=Eleventy* npx @11ty/eleventy",
     "debugstart": "cross-env DEBUG=Eleventy* npx @11ty/eleventy --serve --quiet",
     "benchmark": "cross-env DEBUG=Eleventy:Benchmark* npx @11ty/eleventy"
