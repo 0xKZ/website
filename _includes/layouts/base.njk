@@ -8,6 +8,24 @@
 		    is clicked). eleventy:ignore keeps it inline instead of moving it
 		    to the per-page bundle, so it runs before first paint. #}
 		<script eleventy:ignore>document.documentElement.classList.add("js")</script>
+		{#- Apply a saved light/dark override (persisted by the theme toggle,
+		    see below) before first paint so there's no flash of the wrong
+		    theme. No saved value means "follow the system setting" — the
+		    same invariant the toggle's CSS and JS rely on.
+		    eleventy:ignore keeps it inline instead of moving it to the
+		    per-page bundle, so it runs before first paint. #}
+		<script eleventy:ignore>
+			(function () {
+				try {
+					var theme = localStorage.getItem("zk-theme");
+					if (theme === "light" || theme === "dark") {
+						document.documentElement.dataset.theme = theme;
+					}
+				} catch {
+					/* no localStorage access: follow the system setting */
+				}
+			})();
+		</script>
 		<title>{{ title or metadata.title }}</title>
 		<meta name="description" content="{{ description or metadata.description }}">
 
@@ -62,6 +80,79 @@
 				document.getElementById(id)?.classList.add("pull-quote-visited");
 			});
 		</script>
+
+		{#- Light/dark toggle: flip the `data-theme` override on <html> and
+		    persist the choice. "No data-theme = follow the system" is an
+		    invariant shared with the pre-paint script above and the icon
+		    rules in css/index.css — change all three together. aria-pressed
+		    always reflects the effective theme, including a system setting
+		    that changes while the page is open. #}
+		<script type="module">
+			(function () {
+				const button = document.querySelector(".theme-toggle");
+				if (!button) return;
+
+				const root = document.documentElement;
+				const STORAGE_KEY = "zk-theme";
+				const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+				const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+				// The system setting; an explicit override (data-theme) wins over it
+				const systemTheme = () => (prefersDark.matches ? "dark" : "light");
+				const effectiveTheme = () => root.dataset.theme || systemTheme();
+				// A value pins the theme; null clears the override (follow the system)
+				const setTheme = (theme) => {
+					if (theme) root.dataset.theme = theme;
+					else delete root.dataset.theme;
+					try {
+						if (theme) localStorage.setItem(STORAGE_KEY, theme);
+						else localStorage.removeItem(STORAGE_KEY);
+					} catch {
+						/* no localStorage access: the choice just won't persist */
+					}
+				};
+
+				// No static aria-pressed in the markup: a hardcoded default would
+				// misstate the mode until this runs
+				const syncPressed = () =>
+					button.setAttribute("aria-pressed", String(effectiveTheme() === "dark"));
+				syncPressed();
+
+				// If the system setting flips while the page is open, the CSS flips the
+				// colors and icon by itself — but only re-sync aria-pressed when the
+				// site is actually following the system (an override pins the state)
+				prefersDark.addEventListener("change", () => {
+					if (!root.dataset.theme) syncPressed();
+				});
+
+				button.addEventListener("click", () => {
+					const target = effectiveTheme() === "dark" ? "light" : "dark";
+					const apply = () => {
+						// Toggling back to the current system setting clears the
+						// override, so the site keeps following the system instead
+						// of staying pinned
+						setTheme(target === systemTheme() ? null : target);
+						syncPressed();
+					};
+					// Crossfade the swap with the View Transition API (the same one
+					// the site uses for navigation, see css/index.css), except while
+					// another transition is in progress (a second startViewTransition()
+					// call would throw InvalidStateError; navigation transitions are
+					// the common case) and under prefers-reduced-motion (an explicit
+					// call isn't guaranteed to be suppressed by the browser, unlike
+					// automatic navigation transitions). The callback runs
+					// synchronously inside startViewTransition(), so `target` above
+					// is always up to date — no bookkeeping needed for fast clicks.
+					const canCrossfade = "startViewTransition" in document &&
+						!document.viewTransition &&
+						!prefersReducedMotion.matches;
+					if (canCrossfade) {
+						document.startViewTransition(apply);
+					} else {
+						apply();
+					}
+				});
+			})();
+		</script>
 	</head>
 	<body>
 		<a href="#main" id="skip-link" class="visually-hidden">Skip to main content</a>
@@ -78,6 +169,29 @@
 				{%- endfor %}
 				</ul>
 			</nav>
+
+			{#- Light/dark mode toggle (styles + icon switching: css/index.css,
+			    pre-paint restore of the saved choice + click handler: scripts
+			    in <head> above). The label names the control rather than a
+			    mode, so it stays true in both themes; the state lives in
+			    aria-pressed, which the handler sets (no static default, which
+			    would misstate the mode until the bundle runs). #}
+			<button type="button" class="theme-toggle" aria-label="Toggle dark mode">
+				<svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+				</svg>
+				<svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<circle cx="12" cy="12" r="5"></circle>
+					<line x1="12" y1="1" x2="12" y2="3"></line>
+					<line x1="12" y1="21" x2="12" y2="23"></line>
+					<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+					<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+					<line x1="1" y1="12" x2="3" y2="12"></line>
+					<line x1="21" y1="12" x2="23" y2="12"></line>
+					<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+					<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+				</svg>
+			</button>
 		</header>
 
 		<main id="main">
