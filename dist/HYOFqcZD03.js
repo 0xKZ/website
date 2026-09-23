@@ -235,3 +235,67 @@ document.addEventListener("click", (event) => {
 				const id = decodeURIComponent(link.hash.slice(1));
 				document.getElementById(id)?.classList.add("pull-quote-visited");
 			});
+(function () {
+				const button = document.querySelector(".theme-toggle");
+				if (!button) return;
+
+				const root = document.documentElement;
+				const STORAGE_KEY = "zk-theme";
+				const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+				const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+				// The system setting; an explicit override (data-theme) wins over it
+				const systemTheme = () => (prefersDark.matches ? "dark" : "light");
+				const effectiveTheme = () => root.dataset.theme || systemTheme();
+				// A value pins the theme; null clears the override (follow the system)
+				const setTheme = (theme) => {
+					if (theme) root.dataset.theme = theme;
+					else delete root.dataset.theme;
+					try {
+						if (theme) localStorage.setItem(STORAGE_KEY, theme);
+						else localStorage.removeItem(STORAGE_KEY);
+					} catch {
+						/* no localStorage access: the choice just won't persist */
+					}
+				};
+
+				// No static aria-pressed in the markup: a hardcoded default would
+				// misstate the mode until this runs
+				const syncPressed = () =>
+					button.setAttribute("aria-pressed", String(effectiveTheme() === "dark"));
+				syncPressed();
+
+				// If the system setting flips while the page is open, the CSS flips the
+				// colors and icon by itself — but only re-sync aria-pressed when the
+				// site is actually following the system (an override pins the state)
+				prefersDark.addEventListener("change", () => {
+					if (!root.dataset.theme) syncPressed();
+				});
+
+				button.addEventListener("click", () => {
+					const target = effectiveTheme() === "dark" ? "light" : "dark";
+					const apply = () => {
+						// Toggling back to the current system setting clears the
+						// override, so the site keeps following the system instead
+						// of staying pinned
+						setTheme(target === systemTheme() ? null : target);
+						syncPressed();
+					};
+					// Crossfade the swap with the View Transition API (the same one
+					// the site uses for navigation, see css/index.css), except while
+					// another transition is in progress (a second startViewTransition()
+					// call would throw InvalidStateError; navigation transitions are
+					// the common case) and under prefers-reduced-motion (an explicit
+					// call isn't guaranteed to be suppressed by the browser, unlike
+					// automatic navigation transitions). The callback runs
+					// synchronously inside startViewTransition(), so `target` above
+					// is always up to date — no bookkeeping needed for fast clicks.
+					const canCrossfade = "startViewTransition" in document &&
+						!document.viewTransition &&
+						!prefersReducedMotion.matches;
+					if (canCrossfade) {
+						document.startViewTransition(apply);
+					} else {
+						apply();
+					}
+				});
+			})();

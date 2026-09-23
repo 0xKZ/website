@@ -4,6 +4,18 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script>document.documentElement.classList.add("js")</script>
+		<script>
+			(function () {
+				try {
+					var theme = localStorage.getItem("zk-theme");
+					if (theme === "light" || theme === "dark") {
+						document.documentElement.dataset.theme = theme;
+					}
+				} catch {
+					/* no localStorage access: follow the system setting */
+				}
+			})();
+		</script>
 		<title>There&#39;s No Limit to How Bad Code Can Get</title>
 		<meta name="description" content="Metaphors like &quot;a sinking ship&quot; are often used to describe codebases, but are misleading. A _business_ will sink long before code quality reaches a hypothetical floor. Technical debt has no bankruptcy, no clean reset, so metaphors that imply an end provide a false sense of security.">
 		<link rel="canonical" href="https://zachkehs.com/blog/theres_no_limit_to_how_bad_code_can_get/">
@@ -47,6 +59,17 @@
 
     --header-footer-separator-color: var(--color-gray-20);
     --syntax-tab-size: 2;
+}
+
+/* Explicit light/dark override, set on <html> by the theme toggle in the
+   header (layouts/base.njk). `light-dark()` resolves against the element's
+   `color-scheme`, so narrowing the root's scheme flips the whole site.
+   Absence of the attribute means "follow the system setting." */
+:root[data-theme="light"] {
+    color-scheme: light;
+}
+:root[data-theme="dark"] {
+    color-scheme: dark;
 }
 
 /* Global stylesheet */
@@ -249,6 +272,61 @@ header {
 }
 .nav a[href][aria-current="page"] {
     text-decoration: underline;
+}
+
+/* Theme toggle: a light/dark switch on the right of the header.
+   It only works with JavaScript (click handler + pre-paint script in
+   layouts/base.njk), so it stays hidden without the `js` class, like the
+   other JS-gated enhancements.
+   The icon shows the mode the button will switch *to*, driven purely by
+   CSS off the effective theme — the system setting unless an explicit
+   `data-theme` override is set — so it's correct even before JS loads.
+   These selectors are the CSS half of effectiveTheme() in layouts/base.njk;
+   keep them in sync. */
+.theme-toggle {
+    display: none;
+}
+html.js .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25em;
+    border: 0;
+    border-radius: 2px;
+    background: transparent;
+    color: var(--text-color);
+    cursor: pointer;
+}
+.theme-toggle:hover {
+    color: var(--text-color-link);
+}
+.theme-toggle:focus-visible {
+    outline: thin dotted;
+    outline-offset: 2px;
+}
+.theme-toggle svg {
+    display: block;
+    width: 1.25em;
+    height: 1.25em;
+}
+/* Effective theme is light (default, or explicit light override): moon = "switch to dark" */
+.theme-toggle .icon-sun {
+    display: none;
+}
+/* System is dark and there's no explicit light override: sun = "switch to light" */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .theme-toggle .icon-sun {
+        display: block;
+    }
+    :root:not([data-theme="light"]) .theme-toggle .icon-moon {
+        display: none;
+    }
+}
+/* Explicit dark override always wins */
+:root[data-theme="dark"] .theme-toggle .icon-sun {
+    display: block;
+}
+:root[data-theme="dark"] .theme-toggle .icon-moon {
+    display: none;
 }
 
 /* Posts list */
@@ -596,6 +674,7 @@ a[role="doc-noteref"]:focus-visible::after {
 }</style>
 		
 		
+		
 	</head>
 	<body>
 		<a href="#main" id="skip-link" class="visually-hidden">Skip to main content</a>
@@ -612,6 +691,22 @@ a[role="doc-noteref"]:focus-visible::after {
 					<li class="nav-item"><a href="/subscribe/">Subscribe</a></li>
 				</ul>
 			</nav>
+			<button type="button" class="theme-toggle" aria-label="Toggle dark mode">
+				<svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+				</svg>
+				<svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<circle cx="12" cy="12" r="5"></circle>
+					<line x1="12" y1="1" x2="12" y2="3"></line>
+					<line x1="12" y1="21" x2="12" y2="23"></line>
+					<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+					<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+					<line x1="1" y1="12" x2="3" y2="12"></line>
+					<line x1="21" y1="12" x2="23" y2="12"></line>
+					<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+					<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+				</svg>
+			</button>
 		</header>
 
 		<main id="main">
@@ -760,8 +855,8 @@ if we put in the effort to stop the sinking. Grab a bucket.</p>
 			</heading-anchors>
 		</main>
 
-		<!-- This page `/blog/theres_no_limit_to_how_bad_code_can_get/` was built on 2026-09-20T21:30:37.364Z -->
-		<script type="module" src="/dist/sq7_6uXRHC.js"></script>
+		<!-- This page `/blog/theres_no_limit_to_how_bad_code_can_get/` was built on 2026-09-23T20:04:30.453Z -->
+		<script type="module" src="/dist/HYOFqcZD03.js"></script>
 
 		<!-- SimpleAnalytics integration -->
 		<script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
