@@ -138,8 +138,10 @@ footer {
     padding: 1rem;
 }
 /* Center the footer badge (it inherits the footer's text alignment) and
-   stick it to the bottom of the viewport on short pages */
-footer {
+   stick it to the bottom of the viewport on short pages.
+   Scoped to the direct child of <body>: posts also contain a <footer>
+   (the footnotes' <footer role="doc-endnotes">), which must stay left-aligned */
+body > footer {
     margin-top: auto;
     text-align: center;
 }
