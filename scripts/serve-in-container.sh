@@ -15,12 +15,12 @@
 #      (npm ci also wipes node_modules and reinstalls, which matters because
 #      the native binaries in a Mac-installed node_modules — e.g. sharp —
 #      don't work on Linux.)
-#   3. Starts Eleventy's dev server (live reload) on port 8080 inside the
-#      container and publishes it to localhost:$PORT on the Mac. The inner
-#      port is 8080 (Eleventy's own default), but that port only exists
-#      inside the container.
+#   3. Starts Eleventy's dev server (live reload) inside the container and
+#      publishes it to localhost:$PORT on the Mac. The inner port is set to
+#      the same number as $PORT, so the port Eleventy prints to your terminal
+#      matches the port you actually use in a browser.
 #
-# The default host port is 4173 — deliberately not 8080, which is a popular
+# The default port is 4173 — deliberately not 8080, which is a popular
 # port for other local servers (e.g. a llama-server hosting local models).
 #
 # Usage:
@@ -46,9 +46,8 @@ MEMORY="${MEMORY:-2g}"
 PORT="${PORT:-4173}"
 PI_CONTAINER_DIR="${PI_CONTAINER_DIR:-$(cd "$PROJECT_DIR/.." && pwd)/pi-container}"
 
-# Eleventy's dev server binds all interfaces inside the container; we publish
-# a fixed inner port and map the host port to it.
-INNER_PORT=8080
+# Eleventy's dev server binds all interfaces inside the container; the inner
+# port matches the host port so the printed URL is the one to use.
 
 BUILD_ONLY=false
 
@@ -144,7 +143,7 @@ CONTAINER_NAME="${PROJECT_NAME}-serve-${SESSION_ID}"
 # ---------------------------------------------------------------------------
 # In-container commands
 #
-# PROJECT_NAME / INNER_PORT are passed via --env and expanded by the
+# PROJECT_NAME / PORT are passed via --env and expanded by the
 # container's bash (this script's bash must not expand them here).
 # ---------------------------------------------------------------------------
 
@@ -162,8 +161,8 @@ echo "==> [container] build complete — output written to _site/ (visible on yo
 '
 else
   INNER_CMD+="
-echo \"==> [container] starting Eleventy dev server on port ${INNER_PORT}\"
-exec npx @11ty/eleventy --serve --port \"\${INNER_PORT}\"
+echo \"==> [container] starting Eleventy dev server on port ${PORT}\"
+exec npx @11ty/eleventy --serve --port \"\${PORT}\"
 "
 fi
 
@@ -173,7 +172,7 @@ fi
 
 PUBLISH_ARGS=()
 if [ "$BUILD_ONLY" != true ]; then
-  PUBLISH_ARGS=(--publish "${PORT}:${INNER_PORT}")
+  PUBLISH_ARGS=(--publish "${PORT}:${PORT}")
 fi
 
 echo ""
@@ -197,6 +196,6 @@ container run --rm -it \
   --volume "$NPM_CACHE_DIR:/home/pi/.npm" \
   --entrypoint bash \
   --env "PROJECT_NAME=$PROJECT_NAME" \
-  --env "INNER_PORT=$INNER_PORT" \
+  --env "PORT=$PORT" \
   "$IMAGE_TAG" \
   -c "$INNER_CMD"
