@@ -7,7 +7,7 @@ The website is simple because it gets the job done and I want to minimize my mai
 
 # Setup
 
-## Install Node.js >= v18
+## Install Node.js >= v20
 
 ### When using bash:
 
