@@ -57,9 +57,15 @@ body {
 }
 html {
     overflow-y: scroll;
+    height: 100%;
 }
+/* Flex column + min-height: 100% anchors the footer (margin-top: auto below)
+   to the bottom of the viewport on pages shorter than the screen */
 body {
     max-width: 40em;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 /* https://www.a11yproject.com/posts/how-to-hide-content/ */
@@ -130,6 +136,12 @@ a[href]:active {
 main,
 footer {
     padding: 1rem;
+}
+/* Center the footer badge (it inherits the footer's text alignment) and
+   stick it to the bottom of the viewport on short pages */
+footer {
+    margin-top: auto;
+    text-align: center;
 }
 main :first-child {
     margin-top: 0;
