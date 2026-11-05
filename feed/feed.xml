@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet href="pretty-atom-feed.xsl" type="text/xsl"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   
   <title>Zach Kehs</title>
@@ -191,6 +190,11 @@ if we put in the effort to stop the sinking. Grab a bucket.&lt;/p&gt;
 &lt;p&gt;I saved up money with the plan on building a big enough runway to be able to complete the game project (at a reasonably relaxed pace over several years). Over time, the fire within me to do the project never went out, and eventually the urge to quit my job was unbearable, and so I stepped away from the corporate life in 2024. Maybe this will come to be seen as a huge mistake. At the time of writing this, I&#39;m a little over one year in, and I&#39;m having a lot of fun and I have no regrets. Hopefully it stays that way.&lt;/p&gt;
 &lt;p&gt;Even though I&#39;ve been working on the game for a while, it&#39;s still the early days, believe it or not. I have a very long-term mindset with this project, where I want to take my time experimenting with the systems to make them fit together in the best way possible. Therefore, I don&#39;t have much to show yet. When I do, I&#39;ll post about it on this website. Consider subscribing to my mailing list to stay up to date. :)&lt;/p&gt;
 &lt;p&gt;-Zach&lt;/p&gt;
+&lt;p&gt;
+    If you prefer a &lt;a href=&quot;https://aboutfeeds.com&quot;&gt;newsreader&lt;/a&gt;, you can subscribe to
+    &lt;a href=&quot;https://zachkehs.com/feed/feed.xml&quot;&gt;the web feed&lt;/a&gt;
+    (Atom/RSS).
+&lt;/p&gt;
 &lt;!--EmailOctopus Signup --&gt;
 &lt;script async=&quot;&quot; src=&quot;https://eocampaign1.com/form/991a64dc-e033-11f0-acd8-e16c0801f9d0.js&quot; data-form=&quot;991a64dc-e033-11f0-acd8-e16c0801f9d0&quot;&gt;&lt;/script&gt;
 </content>
